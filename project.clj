@@ -82,15 +82,4 @@
                               :test {:source-paths ["src/cljs"  "test/cljs"]
                                      :compiler {:output-to "target/test.js"
                                                 :optimizations :whitespace
-                                                :pretty-print true}}}}}
-
-   :uberjar {:hooks [leiningen.cljsbuild minify-assets.plugin/hooks]
-             :env {:production true}
-             :aot :all
-             :omit-source true
-             :cljsbuild {:jar true
-                         :builds {:app
-                                  {:source-paths ["env/prod/cljs"]
-                                   :compiler
-                                   {:optimizations :advanced
-                                    :pretty-print false}}}}}})
+                                                :pretty-print true}}}}}})
