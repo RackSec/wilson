@@ -60,7 +60,7 @@
                    :source-paths ["env/dev/clj"]
                    :plugins [[lein-figwheel "0.3.3"]
                              [lein-cljsbuild "1.0.6"]
-                             [com.cemerick/clojurescript.test "0.3.2"]]
+                             [doo "0.1.0-SNAPSHOT"]]
 
                    :injections [(require 'pjstadig.humane-test-output)
                                 (pjstadig.humane-test-output/activate!)]
