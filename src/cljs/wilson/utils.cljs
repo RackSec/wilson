@@ -17,3 +17,12 @@
       (string/lower-case)
       (string/replace #"[_ ]" "-")
       keyword))
+
+(defn kwify-map
+  "Turns a map with str keys into one with kw keys.
+
+  Unlike clojure.walk/keywordize-keys, turns spaces into dashes, and
+  only works on one level."
+  [m]
+  (let [kvs (map (fn [[k v]] [(str->kw k) v]) m)]
+    (into (empty m) kvs)))
