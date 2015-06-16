@@ -55,7 +55,8 @@
                                   [leiningen-core "2.5.1"]
                                   [lein-figwheel "0.3.3"]
                                   [org.clojure/tools.nrepl "0.2.10"]
-                                  [pjstadig/humane-test-output "0.7.0"]]
+                                  [pjstadig/humane-test-output "0.7.0"]
+                                  [doo "0.1.0-SNAPSHOT"]]
 
                    :source-paths ["env/dev/clj"]
                    :plugins [[lein-figwheel "0.3.3"]
