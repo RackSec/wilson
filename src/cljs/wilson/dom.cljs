@@ -1,6 +1,6 @@
 (ns wilson.dom
   "Tools for building DOMs."
-  (:require [steve.utils :refer [capitalize]]
+  (:require [wilson.utils :refer [capitalize]]
             [clojure.string :as string]))
 
 (defn table
