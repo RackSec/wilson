@@ -81,12 +81,7 @@
                                         :test {:source-paths ["src/cljs"  "test/cljs"]
                                                :compiler {:output-to "target/test.js"
                                                           :optimizations :whitespace
-                                                          :pretty-print true}}}
-                               :test-commands {"unit" ["phantomjs" :runner
-                                                       "test/vendor/es5-shim.js"
-                                                       "test/vendor/es5-sham.js"
-                                                       "test/vendor/console-polyfill.js"
-                                                       "target/test.js"]}}}
+                                                          :pretty-print true}}}}}
 
              :uberjar {:hooks [leiningen.cljsbuild minify-assets.plugin/hooks]
                        :env {:production true}
