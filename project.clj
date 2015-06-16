@@ -29,8 +29,6 @@
 
   :min-lein-version "2.5.0"
 
-  :uberjar-name "wilson.jar"
-
   :main wilson.server
 
   :clean-targets
