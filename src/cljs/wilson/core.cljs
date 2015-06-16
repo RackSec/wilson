@@ -1,4 +1,5 @@
-(ns wilson.core)
+(ns wilson.core
+  (:require [reagent.core :as reagent]))
 
 (defn menagerie-page
   []
@@ -6,7 +7,7 @@
 
 (defn mount-root
   []
-  (reagent/render (menagerie-page) (.getElementById js/document "app")))
+  (reagent/render [menagerie-page] (.getElementById js/document "app")))
 
 (defn init!
   []
