@@ -37,9 +37,9 @@
   ^{:protect false} [[:cljsbuild :builds :app :compiler :output-dir]
                      [:cljsbuild :builds :app :compiler :output-to]]
 
-  :minify-assets
-  {:assets
-    {"resources/public/css/site.min.css" "resources/public/css/site.css"}}
+  :minify-assets {:assets
+                  {"resources/public/css/site.min.css"
+                   "resources/public/css/site.css"}}
 
   :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
                              :compiler {:output-to     "resources/public/js/app.js"
