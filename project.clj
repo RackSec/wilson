@@ -24,8 +24,7 @@
   :plugins [[lein-environ "1.0.0"]
             [lein-asset-minifier "0.2.2"]]
 
-  :ring {:handler wilson.handler/app
-         :uberwar-name "wilson.war"}
+  :ring {:handler wilson.handler/app}
 
   :min-lein-version "2.5.0"
 
