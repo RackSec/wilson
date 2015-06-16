@@ -5,8 +5,15 @@
 > Wilson had no reason to suspect that anyone else was in this room;
 > he had every reason to expect the contrary. He had locked himself in
 > his room for the purpose of completing his thesis in one sustained
-> drive. He *had* to--tomorrow was the last day for submission, yesterday the thesis had been no more than a title: "An investigation into Certain Mathematical Aspects of a Rigor of Metaphysics."
+> drive. He *had* to--tomorrow was the last day for submission,
+> yesterday the thesis had been no more than a title: "An
+> investigation into Certain Mathematical Aspects of a Rigor of
+> Metaphysics."
 >
-> Fifty-two cigarettes, four pots of coffee, and thirteen hours of continuous work had added seven thousand words to the title.
+> Fifty-two cigarettes, four pots of coffee, and thirteen hours of
+> continuous work had added seven thousand words to the title. As to
+> the validity of his thesis he was far too groggy to give a damn. Get
+> it done, was his only thought, get it done, turn it in, take three
+> stiff drinks and sleep for a week.
 >
 > *By His Bootstraps*, Robert A. Heinlein (as Anson MacDonald)
