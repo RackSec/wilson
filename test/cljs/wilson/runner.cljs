@@ -1,5 +1,5 @@
 (ns shrieker.runner
   (:require [doo.runner :refer-macros [doo-tests]]
-            [shrieker.dom-test]))
+            [wilson.dom-test]))
 
-(doo-tests 'shrieker.dom-test)
+(doo-tests 'wilson.dom-test)
