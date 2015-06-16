@@ -110,15 +110,3 @@
   (testing "merge with existing classes"
     (is (= (d/with-class "panel" [:a {:class "colorful" :href "/xyzzy"}])
            [:a {:href "/xyzzy" :class "colorful panel"}]))))
-
-(deftest spinners-test
-  (is (= d/big-spinner
-         [:img {:src "img/spinner.gif"
-                :alt "Loading..."
-                :width 32
-                :height 32}]))
-  (is (= d/small-spinner
-         [:img {:src "img/spinner.gif"
-                :alt "Loading..."
-                :width 16
-                :height 16}])))
