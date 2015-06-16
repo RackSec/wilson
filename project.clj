@@ -46,8 +46,8 @@
                                         :pretty-print  true}}}}
 
   :profiles
-  {:dev {:repl-options {:init-ns wilson.repl}
-
+  {:dev {:repl-options {:init-ns figwheel-sidecar.repl-api
+                        :init (figwheel-sidecar.repl-api/cljs-repl)}
          :dependencies [[ring-mock "0.1.5"]
                         [ring/ring-devel "1.3.2"]
                         [leiningen-core "2.5.1"]
