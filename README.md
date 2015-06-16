@@ -10,4 +10,6 @@
 > investigation into Certain Mathematical Aspects of a Rigor of
 > Metaphysics."
 >
-> *By His Bootstraps*, Robert A. Heinlein (as Anson MacDonald)
+> [*By His Bootstraps*, Robert A. Heinlein (as Anson MacDonald)][book]
+
+[book]: https://en.wikipedia.org/wiki/By_His_Bootstraps
