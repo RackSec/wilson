@@ -1,6 +1,6 @@
 (defproject wilson "0.1.0-SNAPSHOT"
-  :url "http://example.com/FIXME"
   :description "Opinionated Reagent bindings for Bootstrap components."
+  :url "https://www.github.com/racksec/wilson"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
