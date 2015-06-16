@@ -51,45 +51,46 @@
   :profiles
   {:dev {:repl-options {:init-ns wilson.repl}
 
-                   :dependencies [[ring-mock "0.1.5"]
-                                  [ring/ring-devel "1.3.2"]
-                                  [leiningen-core "2.5.1"]
-                                  [lein-figwheel "0.3.3"]
-                                  [org.clojure/tools.nrepl "0.2.10"]
-                                  [pjstadig/humane-test-output "0.7.0"]
-                                  [doo "0.1.0-SNAPSHOT"]]
+         :dependencies [[ring-mock "0.1.5"]
+                        [ring/ring-devel "1.3.2"]
+                        [leiningen-core "2.5.1"]
+                        [lein-figwheel "0.3.3"]
+                        [org.clojure/tools.nrepl "0.2.10"]
+                        [pjstadig/humane-test-output "0.7.0"]
+                        [doo "0.1.0-SNAPSHOT"]]
 
-                   :source-paths ["env/dev/clj"]
-                   :plugins [[lein-figwheel "0.3.3"]
-                             [lein-cljsbuild "1.0.6"]
-                             [lein-doo "0.1.0-SNAPSHOT"]]
+         :source-paths ["env/dev/clj"]
 
-                   :injections [(require 'pjstadig.humane-test-output)
-                                (pjstadig.humane-test-output/activate!)]
+         :plugins [[lein-figwheel "0.3.3"]
+                   [lein-cljsbuild "1.0.6"]
+                   [lein-doo "0.1.0-SNAPSHOT"]]
 
-                   :figwheel {:http-server-root "public"
-                              :server-port 3449
-                              :nrepl-port 7002
-                              :css-dirs ["resources/public/css"]
-                              :ring-handler wilson.handler/app}
+         :injections [(require 'pjstadig.humane-test-output)
+                      (pjstadig.humane-test-output/activate!)]
 
-                   :env {:dev true}
+         :figwheel {:http-server-root "public"
+                    :server-port 3449
+                    :nrepl-port 7002
+                    :css-dirs ["resources/public/css"]
+                    :ring-handler wilson.handler/app}
 
-                   :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
-                                              :compiler {:main "wilson.dev"
-                                                         :source-map true}}
-                                        :test {:source-paths ["src/cljs"  "test/cljs"]
-                                               :compiler {:output-to "target/test.js"
-                                                          :optimizations :whitespace
-                                                          :pretty-print true}}}}}
+         :env {:dev true}
 
-             :uberjar {:hooks [leiningen.cljsbuild minify-assets.plugin/hooks]
-                       :env {:production true}
-                       :aot :all
-                       :omit-source true
-                       :cljsbuild {:jar true
-                                   :builds {:app
-                                             {:source-paths ["env/prod/cljs"]
-                                              :compiler
-                                              {:optimizations :advanced
-                                               :pretty-print false}}}}}})
+         :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
+                                    :compiler {:main "wilson.dev"
+                                               :source-map true}}
+                              :test {:source-paths ["src/cljs"  "test/cljs"]
+                                     :compiler {:output-to "target/test.js"
+                                                :optimizations :whitespace
+                                                :pretty-print true}}}}}
+
+   :uberjar {:hooks [leiningen.cljsbuild minify-assets.plugin/hooks]
+             :env {:production true}
+             :aot :all
+             :omit-source true
+             :cljsbuild {:jar true
+                         :builds {:app
+                                  {:source-paths ["env/prod/cljs"]
+                                   :compiler
+                                   {:optimizations :advanced
+                                    :pretty-print false}}}}}})
