@@ -55,24 +55,18 @@
                         [org.clojure/tools.nrepl "0.2.10"]
                         [pjstadig/humane-test-output "0.7.0"]
                         [doo "0.1.0-SNAPSHOT"]]
-
          :source-paths ["env/dev/clj"]
-
          :plugins [[lein-figwheel "0.3.3"]
                    [lein-cljsbuild "1.0.6"]
                    [lein-doo "0.1.0-SNAPSHOT"]]
-
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
-
          :figwheel {:http-server-root "public"
                     :server-port 3449
                     :nrepl-port 7002
                     :css-dirs ["resources/public/css"]
                     :ring-handler wilson.handler/app}
-
          :env {:dev true}
-
          :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
                                     :compiler {:main "wilson.dev"
                                                :source-map true}}
