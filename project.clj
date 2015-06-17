@@ -71,4 +71,5 @@
                               :test {:source-paths ["src/cljs"  "test/cljs"]
                                      :compiler {:output-to "target/test.js"
                                                 :optimizations :whitespace
-                                                :pretty-print true}}}}}})
+                                                :pretty-print true}}}}}
+   :uberjar {:aot :all}})
