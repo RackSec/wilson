@@ -4,8 +4,8 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  {:deploy-repositories [["releases" :clojars]
-                         ["snapshots" :clojars]]}
+  :deploy-repositories [["releases" :clojars]
+                        ["snapshots" :clojars]]
 
   :source-paths ["src/clj" "src/cljs"]
 
