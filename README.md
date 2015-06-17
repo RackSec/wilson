@@ -12,4 +12,6 @@
 >
 > [*By His Bootstraps*, Robert A. Heinlein (as Anson MacDonald)][book]
 
+[![Clojars Project](http://clojars.org/wilson/latest-version.svg)](http://clojars.org/wilson)
+
 [book]: https://en.wikipedia.org/wiki/By_His_Bootstraps
