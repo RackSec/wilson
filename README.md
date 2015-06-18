@@ -1,5 +1,7 @@
 # wilson
 
+[![Build Status](https://travis-ci.org/RackSec/wilson.svg?branch=master)](https://travis-ci.org/RackSec/wilson)
+
 <img width="25%" src="https://upload.wikimedia.org/wikipedia/en/a/aa/By_His_Bootstraps_ASF_Oct_1941.jpg" align="right">
 
 > Wilson had no reason to suspect that anyone else was in this room;
