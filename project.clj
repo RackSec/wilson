@@ -55,11 +55,11 @@
                         [lein-figwheel "0.3.3"]
                         [org.clojure/tools.nrepl "0.2.10"]
                         [pjstadig/humane-test-output "0.7.0"]
-                        [doo "0.1.0-SNAPSHOT"]]
+                        [doo "0.1.1-SNAPSHOT"]]
          :source-paths ["env/dev/clj"]
          :plugins [[lein-figwheel "0.3.3"]
                    [lein-cljsbuild "1.0.6"]
-                   [lein-doo "0.1.0-SNAPSHOT"]]
+                   [lein-doo "0.1.1-SNAPSHOT"]]
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
          :figwheel {:http-server-root "public"
