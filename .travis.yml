@@ -1,0 +1,8 @@
+language: clojure
+script:
+  - lein doo phantom test once
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
+
