@@ -1,5 +1,5 @@
 (ns wilson.core-test
-  (:require [cemerick.cljs.test :refer-macros [is are deftest testing use-fixtures done]]
+  (:require [cljs.test :refer-macros [deftest is]]
             [reagent.core :as reagent :refer [atom]]
             [wilson.core :as rc]))
 
