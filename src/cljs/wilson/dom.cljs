@@ -6,7 +6,7 @@
 (defn table
   "Creates a table displaying the keys in the given rows of data."
   [keys rows]
-  [:table {:class "table table-hover"}
+  [:table {:class "table table-responsive table-hover"}
    [:thead
     (into [:tr]
           (for [k keys]
