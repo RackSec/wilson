@@ -5,17 +5,20 @@
 
 (defn table
   "Creates a table displaying the keys in the given rows of data."
-  [keys rows]
-  [:table {:class "table table-responsive table-hover"}
-   [:thead
-    (into [:tr]
-          (for [k keys]
-            [:th (capitalize k)]))]
-   (into [:tbody]
-         (for [row rows]
-           (into [:tr]
-                 (for [k keys]
-                   [:td (get row k)]))))])
+  ([keys rows {:keys [row->cls]}]
+   [:table {:class "table table-responsive table-hover"}
+    [:thead
+     (into [:tr]
+           (for [k keys]
+             [:th (capitalize k)]))]
+    (into [:tbody]
+          (for [row rows]
+            (into [:tr
+                   {:class (row->cls row)}]
+                  (for [k keys]
+                    [:td (get row k)]))))])
+  ([keys rows]
+   (table keys rows {:row->cls (constantly nil)})))
 
 (defn label
   "Creates a pretty Bootstrap label."

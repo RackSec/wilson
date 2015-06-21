@@ -50,15 +50,15 @@
               [:th "Some key"]
               [:th "Some other key"]]]
             [:tbody
-             [:tr
+             [:tr {:class nil}
               [:td (d/label "warning" "h")]
               [:td "i"]
               [:td "j"]]
-             [:tr
+             [:tr {:class nil}
               [:td "p"]
               [:td (d/label "warning" "q")]
               [:td "r"]]
-             [:tr
+             [:tr {:class nil}
               [:td "x"]
               [:td "y"]
               [:td (d/label "warning" "z")]]]]))))
