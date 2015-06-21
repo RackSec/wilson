@@ -44,7 +44,7 @@
                                         :output-dir "resources/public/js/out"
                                         :asset-path "js/out"
                                         :optimizations :none
-                                        :pretty-print  true}}}}
+                                        :pretty-print true}}}}
 
   ;; :repl-options {:init-ns figwheel-sidecar.repl-api
   ;;                :init (figwheel-sidecar.repl-api/cljs-repl)}
