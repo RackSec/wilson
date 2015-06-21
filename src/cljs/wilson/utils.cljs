@@ -26,3 +26,8 @@
   [m]
   (let [kvs (map (fn [[k v]] [(str->kw k) v]) m)]
     (into (empty m) kvs)))
+
+(defn substr?
+  "Is sub a substring of super?"
+  [super sub]
+  (not= (.indexOf super sub) -1))
