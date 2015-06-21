@@ -25,3 +25,14 @@
     {} {}
     {"abc" "abc"} {:abc "abc"}
     {"abc def" "abc def"} {:abc-def "abc def"}))
+
+(deftest substr?-test
+  (are [super sub] (u/substr? super sub)
+    "" ""
+    "x" "x"
+    "xyz" "xyz"
+    "xyz" "xy"
+    "xyz" "z")
+  (are [super sub] (not (u/substr? super sub))
+    "" "a"
+    "abc" "def"))
