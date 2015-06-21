@@ -43,7 +43,7 @@
                       :some-key "y"
                       :some-other-key (d/label "warning" "z")
                       :hidden "hidden"}])
-           [:table {:class "table table-hover"}
+           [:table {:class "table table-responsive table-hover"}
             [:thead
              [:tr
               [:th "A key"]
