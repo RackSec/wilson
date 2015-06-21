@@ -46,10 +46,11 @@
                                         :optimizations :none
                                         :pretty-print  true}}}}
 
+  ;; :repl-options {:init-ns figwheel-sidecar.repl-api
+  ;;                :init (figwheel-sidecar.repl-api/cljs-repl)}
+
   :profiles
-  {:dev {:repl-options {:init-ns figwheel-sidecar.repl-api
-                        :init (figwheel-sidecar.repl-api/cljs-repl)}
-         :dependencies [[ring-mock "0.1.5"]
+  {:dev {:dependencies [[ring-mock "0.1.5"]
                         [ring/ring-devel "1.3.2"]
                         [leiningen-core "2.5.1"]
                         [lein-figwheel "0.3.3"]
