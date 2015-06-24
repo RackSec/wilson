@@ -18,7 +18,7 @@
                   (for [k keys]
                     [:td (get row k)]))))])
   ([keys rows]
-   (table keys rows {:row->cls (constantly nil)})))
+   (table keys rows {:row->cls :wilson/row-class})))
 
 (defn label
   "Creates a pretty Bootstrap label."
