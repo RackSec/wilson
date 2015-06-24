@@ -62,6 +62,41 @@
               [:td "x"]
               [:td "y"]
               [:td (d/label "warning" "z")]]]])))
+  (testing "table with per-row classes specified in the input data"
+    (is (= (d/table [:a-key :some-key :some-other-key]
+                    [{:a-key (d/label "warning" "h")
+                      :some-key "i"
+                      :some-other-key "j"
+                      :hidden "hidden"
+                      :wilson/row-class "warning"}
+                     {:a-key "p"
+                      :some-key (d/label "warning" "q")
+                      :some-other-key "r"
+                      :hidden "hidden"
+                      :wilson/row-class "success"}
+                     {:a-key "x"
+                      :some-key "y"
+                      :some-other-key (d/label "warning" "z")
+                      :hidden "hidden"}])
+           [:table {:class "table table-responsive table-hover"}
+            [:thead
+             [:tr
+              [:th "A key"]
+              [:th "Some key"]
+              [:th "Some other key"]]]
+            [:tbody
+             [:tr {:class "warning"}
+              [:td (d/label "warning" "h")]
+              [:td "i"]
+              [:td "j"]]
+             [:tr {:class "success"}
+              [:td "p"]
+              [:td (d/label "warning" "q")]
+              [:td "r"]]
+             [:tr {:class nil}
+              [:td "x"]
+              [:td "y"]
+              [:td (d/label "warning" "z")]]]])))
   (testing "table with per-row clases"
     (is (= (d/table [:a-key :some-key :some-other-key]
                     [{:a-key (d/label "warning" "h")
