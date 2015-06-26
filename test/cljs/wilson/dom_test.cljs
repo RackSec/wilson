@@ -183,3 +183,8 @@
   (testing "merge with existing classes"
     (is (= (d/with-class "panel" [:a {:class "colorful" :href "/xyzzy"}])
            [:a {:href "/xyzzy" :class "colorful panel"}]))))
+
+(deftest icon-test
+  (is (= (d/icon "download")
+         [:span {:class "glyphicon glyphicon-download"
+                 :aria-hidden true}])))
