@@ -76,3 +76,11 @@
 (defn row
   [& elems]
   (into [:div {:class "row"}] elems))
+
+(defn icon
+  "Creates a Glyphicon.
+
+  `type` should be a glyphicon name."
+  [type]
+  [:span {:class (str "glyphicon glyphicon-" (name type))
+          :aria-hidden true}])
