@@ -7,7 +7,7 @@
   :deploy-repositories [["releases" :clojars]
                         ["snapshots" :clojars]]
 
-  :source-paths ["src/clj" "src/cljs"]
+  :source-paths ["src/"]
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [ring-server "0.4.0"]
@@ -39,7 +39,7 @@
                   {"resources/public/css/site.min.css"
                    "resources/public/css/site.css"}}
 
-  :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
+  :cljsbuild {:builds {:app {:source-paths ["src/"]
                              :compiler {:output-to "resources/public/js/app.js"
                                         :output-dir "resources/public/js/out"
                                         :asset-path "js/out"
@@ -72,7 +72,7 @@
          :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
                                     :compiler {:main "wilson.dev"
                                                :source-map true}}
-                              :test {:source-paths ["src/cljs"  "test/cljs"]
+                              :test {:source-paths ["src/"  "test/cljs"]
                                      :compiler {:output-to "target/test.js"
                                                 :optimizations :whitespace
                                                 :pretty-print true}}}}}

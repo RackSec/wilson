@@ -30,4 +30,5 @@
 (defn substr?
   "Is sub a substring of super?"
   [super sub]
-  (not= (.indexOf super sub) -1))
+  #?(:clj (.contains ^String super sub)
+     :cljs (not= (.indexOf super sub) -1)))
