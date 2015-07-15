@@ -13,7 +13,7 @@
                  [ring-server "0.4.0"]
                  [cljsjs/react "0.13.3-1"]
                  [reagent "0.5.0"]
-                 [ring "1.3.2"]
+                 [ring "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [prone "0.8.2"]
                  [compojure "1.3.4"]
