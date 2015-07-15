@@ -51,7 +51,7 @@
 
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.5"]
-                        [ring/ring-devel "1.3.2"]
+                        [ring/ring-devel "1.4.0"]
                         [leiningen-core "2.5.1"]
                         [lein-figwheel "0.3.7"]
                         [org.clojure/tools.nrepl "0.2.10"]
