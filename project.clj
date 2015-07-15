@@ -11,7 +11,7 @@
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [ring-server "0.4.0"]
-                 [cljsjs/react "0.13.3-0"]
+                 [cljsjs/react "0.13.3-1"]
                  [reagent "0.5.0"]
                  [ring "1.3.2"]
                  [ring/ring-defaults "0.1.5"]
