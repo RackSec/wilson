@@ -53,7 +53,7 @@
   {:dev {:dependencies [[ring-mock "0.1.5"]
                         [ring/ring-devel "1.3.2"]
                         [leiningen-core "2.5.1"]
-                        [lein-figwheel "0.3.3"]
+                        [lein-figwheel "0.3.7"]
                         [org.clojure/tools.nrepl "0.2.10"]
                         [pjstadig/humane-test-output "0.7.0"]
                         [doo "0.1.1-SNAPSHOT"]]
