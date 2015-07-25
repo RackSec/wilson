@@ -4,6 +4,8 @@
 (defn capitalize
   "Turns a string or keyword into a capitalized string.
 
+  Acronyms will be properly capitalized.
+
   Unlike clojure.string/capitalize, works on keywords."
   [s]
   (-> (name s)
