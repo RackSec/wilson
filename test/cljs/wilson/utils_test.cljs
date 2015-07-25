@@ -8,9 +8,14 @@
     "Hockey" "Hockey"
     "playing hockey" "Playing hockey"
     "playing_hockey" "Playing hockey"
+    "os name" "OS name"
+    "os_name" "OS name"
+    "ip address" "IP address"
 
     :hockey "Hockey"
-    :playing-hockey "Playing hockey"))
+    :playing-hockey "Playing hockey"
+    :os-name "OS name"
+    :ip-address "IP address"))
 
 (deftest str->kw-test
   (are [in out] (= (u/str->kw in) out)
