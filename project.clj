@@ -22,6 +22,7 @@
                  [secretary "1.2.3"]]
 
   :plugins [[lein-environ "1.0.0"]
+            [lein-auto "0.1.2"]
             [lein-asset-minifier "0.2.2"]]
 
   ;; HACK: https://github.com/technomancy/leiningen/issues/1940
