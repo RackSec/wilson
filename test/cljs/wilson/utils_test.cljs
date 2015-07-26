@@ -11,6 +11,7 @@
     "os name" "OS name"
     "os_name" "OS name"
     "ip address" "IP address"
+    "Ip address" "IP address"
 
     :hockey "Hockey"
     :playing-hockey "Playing hockey"
