@@ -24,6 +24,9 @@
   :plugins [[lein-environ "1.0.0"]
             [lein-asset-minifier "0.2.2"]]
 
+  ;; HACK: https://github.com/technomancy/leiningen/issues/1940
+  :aliases {"test" ["test" "wilson.utils-test"]}
+
   :ring {:handler wilson.handler/app}
 
   :min-lein-version "2.5.0"
