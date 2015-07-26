@@ -1,6 +1,8 @@
 (ns wilson.utils-test
-  (:require [wilson.utils :as u]
-            [cljs.test :refer-macros [is are deftest testing use-fixtures]]))
+  (:require
+   [wilson.utils :as u]
+   #?(:clj [clojure.test :refer [is are deftest]]
+      :cljs [cljs.test :refer-macros [is are deftest]])))
 
 (deftest capitalize-test
   (are [in out] (= (u/capitalize in) out)
