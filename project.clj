@@ -70,7 +70,7 @@
          :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
                                     :compiler {:main "wilson.dev"
                                                :source-map true}}
-                              :test {:source-paths ["src/"  "test/cljs"]
+                              :test {:source-paths ["src/"  "test/"]
                                      :compiler {:output-to "target/test.js"
                                                 :optimizations :whitespace
                                                 :pretty-print true}}}}}
