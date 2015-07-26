@@ -30,8 +30,6 @@
 
   :min-lein-version "2.5.0"
 
-  :main wilson.server
-
   :clean-targets
   ^{:protect false} [[:cljsbuild :builds :app :compiler :output-dir]
                      [:cljsbuild :builds :app :compiler :output-to]]
