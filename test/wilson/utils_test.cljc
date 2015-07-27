@@ -9,6 +9,8 @@
     ;; Simple case
     "hockey" "Hockey"
     "Hockey" "Hockey"
+
+    ;; With whitespace or (lo)dash
     "playing hockey" "Playing hockey"
     "playing_hockey" "Playing hockey"
     "os name" "OS name"
