@@ -6,6 +6,7 @@
 
 (deftest capitalize-test
   (are [in out] (= (u/capitalize in) out)
+    ;; Simple case
     "hockey" "Hockey"
     "Hockey" "Hockey"
     "playing hockey" "Playing hockey"
