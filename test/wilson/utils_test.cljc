@@ -22,6 +22,10 @@
 
     ;; Don't capitalize "acronyms" in the middle of a word
     "apotheosis" "Apotheosis"
+
+    ;; Don't capitalize "acronyms" at the end of a word
+    "airship" "Airship"
+
     :hockey "Hockey"
     :playing-hockey "Playing hockey"
     :os-name "OS name"
