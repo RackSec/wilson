@@ -5,7 +5,7 @@
   ["OS" "IP"])
 
 (def ^:private acronym-pattern
-  (re-pattern (str "(?i)(" (string/join "|" acronyms) ")")))
+  (re-pattern (str "(?i)(^|\\s)(" (string/join "|" acronyms) ")(\\s|$)")))
 
 (defn capitalize
   "Turns a string or keyword into a capitalized string.
