@@ -20,6 +20,8 @@
     "ip address" "IP address"
     "Ip address" "IP address"
 
+    ;; Don't capitalize "acronyms" in the middle of a word
+    "apotheosis" "Apotheosis"
     :hockey "Hockey"
     :playing-hockey "Playing hockey"
     :os-name "OS name"
