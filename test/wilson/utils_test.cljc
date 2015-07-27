@@ -14,6 +14,7 @@
     ;; With whitespace or (lo)dash
     "playing hockey" "Playing hockey"
     "playing_hockey" "Playing hockey"
+    :playing-hockey "Playing hockey"
 
     ;; Acronyms at the start
     "os name" "OS name"
@@ -33,7 +34,6 @@
     ;; Don't capitalize "acronyms" at the end of a word
     "airship" "Airship"
 
-    :playing-hockey "Playing hockey"
     :os-name "OS name"
     :ip-address "IP address"))
 
