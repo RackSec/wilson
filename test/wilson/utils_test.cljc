@@ -20,6 +20,8 @@
     "ip address" "IP address"
     "Ip address" "IP address"
 
+    ;; Acronyms at the end
+    "primary ip" "Primary IP"
     ;; Don't capitalize "acronyms" in the middle of a word
     "apotheosis" "Apotheosis"
 
