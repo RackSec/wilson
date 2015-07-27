@@ -17,7 +17,10 @@
   (-> (name s)
       (string/capitalize)
       (string/replace #"[_-]" " ")
-      (string/replace acronym-pattern (comp string/upper-case first))))
+      #?(:clj
+         (string/replace acronym-pattern (comp string/upper-case first))
+         :cljs
+         (.replace acronym-pattern string/upper-case))))
 
 (defn str->kw
   "Turns a str into a kw."
