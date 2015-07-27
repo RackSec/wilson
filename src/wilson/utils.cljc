@@ -1,6 +1,12 @@
 (ns wilson.utils
   (:require [clojure.string :as string]))
 
+(def ^:private acronyms
+  ["OS" "IP"])
+
+(def ^:private acronym-pattern
+  (re-pattern (str "(?i)(" (string/join "|" acronyms) ")")))
+
 (defn capitalize
   "Turns a string or keyword into a capitalized string.
 
@@ -10,7 +16,8 @@
   [s]
   (-> (name s)
       (string/capitalize)
-      (string/replace #"[_-]" " ")))
+      (string/replace #"[_-]" " ")
+      (string/replace acronym-pattern (comp string/upper-case first))))
 
 (defn str->kw
   "Turns a str into a kw."
