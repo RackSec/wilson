@@ -13,6 +13,8 @@
     ;; With whitespace or (lo)dash
     "playing hockey" "Playing hockey"
     "playing_hockey" "Playing hockey"
+
+    ;; Acronyms at the start
     "os name" "OS name"
     "os_name" "OS name"
     "ip address" "IP address"
