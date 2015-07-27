@@ -22,6 +22,7 @@
     :os-name "OS name"
     "ip address" "IP address"
     "Ip address" "IP address"
+    :ip-address "IP address"
 
     ;; Acronyms at the end
     "primary ip" "Primary IP"
@@ -33,9 +34,7 @@
     "apotheosis" "Apotheosis"
 
     ;; Don't capitalize "acronyms" at the end of a word
-    "airship" "Airship"
-
-    :ip-address "IP address"))
+    "airship" "Airship"))
 
 (deftest str->kw-test
   (are [in out] (= (u/str->kw in) out)
