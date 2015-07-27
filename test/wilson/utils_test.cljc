@@ -9,6 +9,7 @@
     ;; Simple case
     "hockey" "Hockey"
     "Hockey" "Hockey"
+    :hockey "Hockey"
 
     ;; With whitespace or (lo)dash
     "playing hockey" "Playing hockey"
@@ -32,7 +33,6 @@
     ;; Don't capitalize "acronyms" at the end of a word
     "airship" "Airship"
 
-    :hockey "Hockey"
     :playing-hockey "Playing hockey"
     :os-name "OS name"
     :ip-address "IP address"))
