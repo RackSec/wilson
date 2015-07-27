@@ -19,6 +19,7 @@
     ;; Acronyms at the start
     "os name" "OS name"
     "os_name" "OS name"
+    :os-name "OS name"
     "ip address" "IP address"
     "Ip address" "IP address"
 
@@ -34,7 +35,6 @@
     ;; Don't capitalize "acronyms" at the end of a word
     "airship" "Airship"
 
-    :os-name "OS name"
     :ip-address "IP address"))
 
 (deftest str->kw-test
