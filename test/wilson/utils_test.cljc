@@ -26,9 +26,11 @@
 
     ;; Acronyms at the end
     "primary ip" "Primary IP"
+    :primary-ip "Primary IP"
 
     ;; Acronyms in the middle
     "primary ip address" "Primary IP address"
+    :primary-ip-address "Primary IP address"
 
     ;; Don't capitalize "acronyms" in the middle of a word
     "apotheosis" "Apotheosis"
