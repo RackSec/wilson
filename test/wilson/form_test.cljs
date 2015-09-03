@@ -46,3 +46,19 @@
              :name "elem"}
             "Not actually input"]]])
       "paragraph elements are static"))
+
+(deftest horiz-form-elem-tests
+  (is (= (f/horiz-form-elem "my-id" "The label" [:input {:type "text"}])
+         [:div
+          {:class "form-group"}
+          [:label {:class "col-sm-2 control-label"
+                   :for "my-id"}
+           "The label"]
+          [:div
+           {:class "col-sm-10"}
+           [:input
+            {:type "text"
+             :id "my-id"
+             :class "form-control"
+             :name "my-id"}]]])
+      "horizontal form elements have 2-10 grid split by default"))
