@@ -1,7 +1,7 @@
 (ns wilson.form
   (:require [wilson.dom :refer [with-attrs with-class]]))
 
-(defn ^:private form-elem
+(defn form-elem
   ([id label input]
    (form-elem id label input {}))
   ([id label input {:keys [label-cls input-container-cls]}]
@@ -15,7 +15,7 @@
                  :default "form-control")]
        (with-attrs {:id id :class cls :name id} input))]]))
 
-(defn ^:private horiz-form-elem
+(defn horiz-form-elem
   "A horizontal form element, with the label and input horizontally
   next to each other."
   ([id label input]
