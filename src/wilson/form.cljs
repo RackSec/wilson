@@ -11,3 +11,10 @@
                 (= (get-in input [1 :type]) "file") "form-control-static"
                 :default "form-control")]
       (with-attrs {:id id :class cls :name id} input))]])
+(defn ^:private horiz-form-elem
+  "A horizontal form element, with the label and input horizontally
+  next to each other."
+  ([id label input]
+   (horiz-form-elem id label input {}))
+  ([id label input opts]
+   (form-elem id label input (merge {} opts))))
