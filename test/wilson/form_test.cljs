@@ -51,7 +51,7 @@
   (is (= (f/horiz-form-elem "my-id" "The label" [:input {:type "text"}])
          [:div
           {:class "form-group"}
-          [:label {:class "col-sm-2 control-label"
+          [:label {:class "control-label col-sm-2"
                    :for "my-id"}
            "The label"]
           [:div
