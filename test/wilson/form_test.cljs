@@ -6,11 +6,11 @@
   (is (= (f/form-elem "my-id" "The label" [:input {:type "text"}])
          [:div
           {:class "form-group"}
-          [:label {:class "col-sm-2 control-label"
+          [:label {:class "control-label"
                    :for "my-id"}
            "The label"]
           [:div
-           {:class "col-sm-10"}
+           {:class nil}
            [:input
             {:type "text"
              :id "my-id"
@@ -20,11 +20,11 @@
   (is (= (f/form-elem "my-id" "The label" [:input {:type "file"}])
          [:div
           {:class "form-group"}
-          [:label {:class "col-sm-2 control-label"
+          [:label {:class "control-label"
                    :for "my-id"}
            "The label"]
           [:div
-           {:class "col-sm-10"}
+           {:class nil}
            [:input
             {:type "file"
              :id "my-id"
@@ -35,11 +35,11 @@
          [:div
           {:class "form-group"}
           [:label
-           {:class "col-sm-2 control-label"
+           {:class "control-label"
             :for "elem"}
            "Label"]
           [:div
-           {:class "col-sm-10"}
+           {:class nil}
            [:p
             {:id "elem"
              :class "form-control-static"
