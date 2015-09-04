@@ -6,7 +6,13 @@
   (is (= (g/row [:span "Hi"])
          [:div {:class "row"}
           [:span "Hi"]])
-      "one element"))
+      "one element")
+  (is (= (g/row [:span "Hello"]
+                [:span "World"])
+         [:div {:class "row"}
+          [:span "Hello"]
+          [:span "World"]])
+      "multiple elements"))
 
 (deftest centered-test
   (is (= (g/centered "sm" 6 [:div])
