@@ -2,6 +2,12 @@
   (:require [wilson.grid :as g]
             [cljs.test :refer-macros [deftest is]]))
 
+(deftest row-test
+  (is (= (g/row [:span "Hi"])
+         [:div {:class "row"}
+          [:span "Hi"]])
+      "one element"))
+
 (deftest centered-test
   (is (= (g/centered "sm" 6 [:div])
          [:div {:class "col-sm-6 col-sm-offset-3"}])
