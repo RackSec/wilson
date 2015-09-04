@@ -73,10 +73,6 @@
   [cls elem]
   (with-attrs {:class cls} elem))
 
-(defn row
-  [& elems]
-  (into [:div {:class "row"}] elems))
-
 (defn icon
   "Creates a Glyphicon.
 

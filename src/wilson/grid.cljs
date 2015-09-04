@@ -2,6 +2,10 @@
   (:require [wilson.dom :refer [with-class]]
             [clojure.string :refer [join]]))
 
+(defn row
+  [& elems]
+  (into [:div {:class "row"}] elems))
+
 (defn centered
   "Assigns a width and an offset to the elem so that it is centered
   within its parent, assuming the parent is also a part of a grid."
