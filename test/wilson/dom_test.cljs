@@ -140,7 +140,9 @@
   (let [t "Some text"
         f (constantly nil)]
     (is (= (d/button t f)
-           [:a {:class "btn btn-default" :on-click f} t]))))
+           [:a {:class "btn btn-default" :on-click f} t]))
+    (is (= (d/button :primary t f)
+           [:a {:class "btn btn-primary" :on-click f} t]))))
 
 (deftest merge-attrs-test
   (testing "last attr wins"
