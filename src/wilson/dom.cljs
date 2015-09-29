@@ -49,8 +49,10 @@
 
 (defn button
   "Creates a Bootstrap-styled button."
-  [text on-click]
-  [:a {:class "btn btn-default" :on-click on-click} text])
+  ([text on-click]
+   (button :default text on-click))
+  ([style text on-click]
+   [:a {:class (str "btn btn-" (name style)) :on-click on-click} text]))
 
 (defn merge-attrs
   "Merge DOM element attributes.
