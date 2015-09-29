@@ -1,6 +1,7 @@
 # wilson
 
 [![Build Status](https://travis-ci.org/RackSec/wilson.svg?branch=master)](https://travis-ci.org/RackSec/wilson)
+[![Clojars Project](http://clojars.org/wilson/latest-version.svg)](http://clojars.org/wilson)
 
 <img width="25%" src="https://upload.wikimedia.org/wikipedia/en/a/aa/By_His_Bootstraps_ASF_Oct_1941.jpg" align="right">
 
@@ -14,6 +15,6 @@
 >
 > [*By His Bootstraps*, Robert A. Heinlein (as Anson MacDonald)][book]
 
-[![Clojars Project](http://clojars.org/wilson/latest-version.svg)](http://clojars.org/wilson)
+Wilson is an opinionated library to help you use [Twitter Bootstrap 3][bs3] in [Clojurescript][cljs], particularly with [Reagent][reagent].
 
 [book]: https://en.wikipedia.org/wiki/By_His_Bootstraps
