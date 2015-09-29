@@ -18,3 +18,6 @@
 Wilson is an opinionated library to help you use [Twitter Bootstrap 3][bs3] in [Clojurescript][cljs], particularly with [Reagent][reagent].
 
 [book]: https://en.wikipedia.org/wiki/By_His_Bootstraps
+[bs3]: http://getbootstrap.com/
+[cljs]: https://github.com/clojure/clojurescript
+[reagent]: https://holmsand.github.io/reagent/
