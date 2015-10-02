@@ -13,7 +13,7 @@
              [:th (capitalize k)]))]
     (into [:tbody]
           (for [row rows]
-            (into [:tr (or (row->attrs row) {})]
+            (into [:tr (row->attrs row)]
                   (for [k keys]
                     [:td (get row k)]))))])
   ([keys rows]
