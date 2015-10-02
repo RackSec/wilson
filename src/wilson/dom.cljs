@@ -17,7 +17,7 @@
                   (for [k keys]
                     [:td (get row k)]))))])
   ([keys rows]
-   (table keys rows {:row->attrs {}})))
+   (table keys rows {:row->attrs (constantly {})})))
 
 (defn label
   "Creates a pretty Bootstrap label."
