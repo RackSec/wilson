@@ -33,16 +33,13 @@
     (is (= (d/table [:a-key :some-key :some-other-key]
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
-                      :some-other-key "j"
-                      :hidden "hidden"}
+                      :some-other-key "j"}
                      {:a-key "p"
                       :some-key (d/label "warning" "q")
-                      :some-other-key "r"
-                      :hidden "hidden"}
+                      :some-other-key "r"}
                      {:a-key "x"
                       :some-key "y"
-                      :some-other-key (d/label "warning" "z")
-                      :hidden "hidden"}])
+                      :some-other-key (d/label "warning" "z")}])
            [:table {:class "table table-hover"}
             [:thead
              [:tr
@@ -50,50 +47,15 @@
               [:th "Some key"]
               [:th "Some other key"]]]
             [:tbody
-             [:tr {:class nil}
+             [:tr {}
               [:td (d/label "warning" "h")]
               [:td "i"]
               [:td "j"]]
-             [:tr {:class nil}
+             [:tr {}
               [:td "p"]
               [:td (d/label "warning" "q")]
               [:td "r"]]
-             [:tr {:class nil}
-              [:td "x"]
-              [:td "y"]
-              [:td (d/label "warning" "z")]]]])))
-  (testing "table with per-row classes specified in the input data"
-    (is (= (d/table [:a-key :some-key :some-other-key]
-                    [{:a-key (d/label "warning" "h")
-                      :some-key "i"
-                      :some-other-key "j"
-                      :hidden "hidden"
-                      :wilson/row-class "warning"}
-                     {:a-key "p"
-                      :some-key (d/label "warning" "q")
-                      :some-other-key "r"
-                      :hidden "hidden"
-                      :wilson/row-class "success"}
-                     {:a-key "x"
-                      :some-key "y"
-                      :some-other-key (d/label "warning" "z")
-                      :hidden "hidden"}])
-           [:table {:class "table table-hover"}
-            [:thead
-             [:tr
-              [:th "A key"]
-              [:th "Some key"]
-              [:th "Some other key"]]]
-            [:tbody
-             [:tr {:class "warning"}
-              [:td (d/label "warning" "h")]
-              [:td "i"]
-              [:td "j"]]
-             [:tr {:class "success"}
-              [:td "p"]
-              [:td (d/label "warning" "q")]
-              [:td "r"]]
-             [:tr {:class nil}
+             [:tr {}
               [:td "x"]
               [:td "y"]
               [:td (d/label "warning" "z")]]]])))
@@ -101,21 +63,18 @@
     (is (= (d/table [:a-key :some-key :some-other-key]
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
-                      :some-other-key "j"
-                      :hidden "hidden"}
+                      :some-other-key "j"}
                      {:a-key "p"
                       :some-key (d/label "warning" "q")
-                      :some-other-key "r"
-                      :hidden "hidden"}
+                      :some-other-key "r"}
                      {:a-key "x"
                       :some-key "y"
-                      :some-other-key (d/label "warning" "z")
-                      :hidden "hidden"}]
-                    {:row->cls (fn [{:keys [some-other-key]}]
+                      :some-other-key (d/label "warning" "z")}]
+                    {:row->attrs (fn [{:keys [some-other-key]}]
                                  (condp = some-other-key
-                                   "j" "warning"
-                                   "r" "success"
-                                   nil))})
+                                   "j" {:class "warning"}
+                                   "r" {:class "success"}
+                                   {:class "info"}))})
            [:table {:class "table table-hover"}
             [:thead
              [:tr
@@ -131,7 +90,7 @@
               [:td "p"]
               [:td (d/label "warning" "q")]
               [:td "r"]]
-             [:tr {:class nil}
+             [:tr {:class "info"}
               [:td "x"]
               [:td "y"]
               [:td (d/label "warning" "z")]]]]))))
