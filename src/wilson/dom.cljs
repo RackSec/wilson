@@ -5,7 +5,7 @@
 
 (defn table
   "Creates a table displaying the keys in the given rows of data."
-  ([keys rows {:keys [row->cls]}]
+  ([keys rows {:keys [row->attrs]}]
    [:table {:class "table table-hover"}
     [:thead
      (into [:tr]
@@ -13,12 +13,11 @@
              [:th (capitalize k)]))]
     (into [:tbody]
           (for [row rows]
-            (into [:tr
-                   {:class (row->cls row)}]
+            (into [:tr (row->attrs row)]
                   (for [k keys]
                     [:td (get row k)]))))])
   ([keys rows]
-   (table keys rows {:row->cls :wilson/row-class})))
+   (table keys rows {:row->attrs (constantly {})})))
 
 (defn label
   "Creates a pretty Bootstrap label."
