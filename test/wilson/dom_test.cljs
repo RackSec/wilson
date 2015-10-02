@@ -33,13 +33,16 @@
     (is (= (d/table [:a-key :some-key :some-other-key]
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
-                      :some-other-key "j"}
+                      :some-other-key "j"
+                      :hidden "hidden"}
                      {:a-key "p"
                       :some-key (d/label "warning" "q")
-                      :some-other-key "r"}
+                      :some-other-key "r"
+                      :hidden "hidden"}
                      {:a-key "x"
                       :some-key "y"
-                      :some-other-key (d/label "warning" "z")}])
+                      :some-other-key (d/label "warning" "z")
+                      :hidden "hidden"}])
            [:table {:class "table table-hover"}
             [:thead
              [:tr
@@ -63,13 +66,16 @@
     (is (= (d/table [:a-key :some-key :some-other-key]
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
-                      :some-other-key "j"}
+                      :some-other-key "j"
+                      :hidden "hidden"}
                      {:a-key "p"
                       :some-key (d/label "warning" "q")
-                      :some-other-key "r"}
+                      :some-other-key "r"
+                      :hidden "hidden"}
                      {:a-key "x"
                       :some-key "y"
-                      :some-other-key (d/label "warning" "z")}]
+                      :some-other-key (d/label "warning" "z")
+                      :hidden "hidden"}]
                     {:row->attrs (fn [{:keys [some-other-key]}]
                                  (condp = some-other-key
                                    "j" {:class "warning"}
