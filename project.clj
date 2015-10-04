@@ -1,4 +1,4 @@
-(defproject wilson "0.14.0"
+(defproject wilson "0.15.0-SNAPSHOT"
   :description "Opinionated Reagent bindings for Bootstrap components."
   :url "https://www.github.com/racksec/wilson"
   :license {:name "Eclipse Public License"
