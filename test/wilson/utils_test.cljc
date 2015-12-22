@@ -33,10 +33,11 @@
     :primary-ip-address "Primary IP address"
 
     ;; Don't capitalize "acronyms" in the middle of a word
-    "apotheosis" "Apotheosis"
+    "apotheosis" "Apotheosis" ;; "OS" is an acronym
 
     ;; Don't capitalize "acronyms" at the end of a word
-    "airship" "Airship"))
+    "airship" "Airship" ;; "IP" is an acronym
+    ))
 
 (deftest str->kw-test
   (are [in out] (= (u/str->kw in) out)
