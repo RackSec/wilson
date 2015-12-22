@@ -28,6 +28,7 @@
   (-> s
       (string/lower-case)
       (string/replace #"[_ ]" "-")
+      (string/replace #"[.]" "")
       keyword))
 
 (defn kwify-map
