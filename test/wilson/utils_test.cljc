@@ -45,7 +45,10 @@
     "abc def" :abc-def
     "abc-def" :abc-def
     "abc_def" :abc-def
-    "ABC_DEF" :abc-def))
+    "ABC_DEF" :abc-def
+    "abc-def." :abc-def
+    "abc-def!" :abc-def!
+    "abc-def?" :abc-def?))
 
 (deftest kwify-map-test
   (are [in out] (= (u/kwify-map in) out)
