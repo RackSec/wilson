@@ -62,6 +62,39 @@
               [:td "x"]
               [:td "y"]
               [:td (d/label "warning" "z")]]]])))
+  (testing "table with nested data"
+    (is (= (d/table [:a-key :some-key [:a :b :c]]
+                    [{:a-key (d/label "warning" "h")
+                      :some-key "i"
+                      :hidden "hidden"
+                      :a {:b {:c 123}}}
+                     {:a-key "p"
+                      :some-key (d/label "warning" "q")
+                      :hidden "hidden"
+                      :a {:b {:c 456}}}
+                     {:a-key "x"
+                      :some-key "y"
+                      :hidden "hidden"
+                      :a {:b {:c "abc"}}}])
+           [:table {:class "table table-hover"}
+            [:thead
+             [:tr
+              [:th "A key"]
+              [:th "Some key"]
+              [:th "A.b.c"]]]
+            [:tbody
+             [:tr {}
+              [:td (d/label "warning" "h")]
+              [:td "i"]
+              [:td 123]]
+             [:tr {}
+              [:td "p"]
+              [:td (d/label "warning" "q")]
+              [:td 456]]
+             [:tr {}
+              [:td "x"]
+              [:td "y"]
+              [:td "abc"]]]])))
   (testing "table with per-row clases"
     (is (= (d/table [:a-key :some-key :some-other-key]
                     [{:a-key (d/label "warning" "h")
