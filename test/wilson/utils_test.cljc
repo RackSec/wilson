@@ -66,3 +66,17 @@
   (are [super sub] (not (u/substr? super sub))
     "" "a"
     "abc" "def"))
+
+(deftest get-or-get-in-test
+  (let [data {:a 123
+              :b {:c "abc"}
+              :d :xyz}]
+    (are [in out] (= (u/get-or-get-in data in) out)
+    :a 123
+    [:b :c] "abc"
+    :d :xyz)))
+
+(deftest kw->dot-notation
+  (are [in out] (= (u/kw->dot-notation in) out)
+    [:a :b :c] "a.b.c"
+    :a (name :a)))
