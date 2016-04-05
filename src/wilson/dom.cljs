@@ -1,6 +1,6 @@
 (ns wilson.dom
   "Tools for building DOMs."
-  (:require [wilson.utils :refer [capitalize]]
+  (:require [wilson.utils :refer [capitalize kw->dot-notation get-or-get-in]]
             [clojure.string :as string]))
 
 (defn table
@@ -10,12 +10,12 @@
     [:thead
      (into [:tr]
            (for [k keys]
-             [:th (capitalize k)]))]
+             [:th (-> k kw->dot-notation capitalize)]))]
     (into [:tbody]
           (for [row rows]
             (into [:tr (row->attrs row)]
                   (for [k keys]
-                    [:td (get row k)]))))])
+                    [:td (get-or-get-in row k)]))))])
   ([keys rows]
    (table keys rows {:row->attrs (constantly {})})))
 

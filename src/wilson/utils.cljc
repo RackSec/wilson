@@ -45,3 +45,19 @@
   [super sub]
   #?(:clj (.contains ^String super sub)
      :cljs (not= (.indexOf super sub) -1)))
+
+(defn get-or-get-in
+  "Will use get when keyword is passed or get-in for vectors"
+  [d kw]
+  (if (vector? kw)
+      (get-in d kw)
+      (get d kw)))
+
+(defn kw->dot-notation
+  "Turns a vector of keywords into a string with corresponding
+  dot-notation (e.g.: [:a :b :c] becomes \"a.b.c\".
+  Keywords are returned using `name` function."
+  [kw]
+  (if (vector? kw)
+      (string/join "." (map name kw))
+      (name kw)))
