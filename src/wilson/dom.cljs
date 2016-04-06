@@ -21,11 +21,11 @@
 
 (defn table
   "Creates a table displaying the keys in the given rows of data."
-  ([keys rows {:keys [row->attrs describe-key prepare-keys]
+  ([ks rows {:keys [row->attrs describe-key prepare-keys]
                  :or {row->attrs (constantly {})
                       describe-key describe-key
                       prepare-keys prepare-keys}}]
-   (let [ready-keys (prepare-keys keys)]
+   (let [ready-keys (prepare-keys ks)]
      [:table {:class "table table-hover"}
       [:thead
        (into [:tr]
@@ -36,8 +36,8 @@
               (into [:tr (row->attrs row)]
                     (for [k ready-keys]
                       [:td (k row)]))))]))
-  ([keys rows]
-   (table keys rows {})))
+  ([ks rows]
+   (table ks rows {})))
 
 (defn label
   "Creates a pretty Bootstrap label."
