@@ -3,21 +3,41 @@
   (:require [wilson.utils :refer [capitalize]]
             [clojure.string :as string]))
 
+(defn describe-key
+  [k]
+  (if (keyword? k)
+      (name k)
+      (:descr (meta k))))
+
+(defn prepare-keys
+  [ks]
+  (map (fn [k]
+         (if (vector? k)
+           (let [f #(get-in % k)
+                 descr (string/join "." (map name k))]
+             (vary-meta f assoc :descr descr))
+           k))
+       ks))
+
 (defn table
   "Creates a table displaying the keys in the given rows of data."
-  ([keys rows {:keys [row->attrs]}]
-   [:table {:class "table table-hover"}
-    [:thead
-     (into [:tr]
-           (for [k keys]
-             [:th (capitalize k)]))]
-    (into [:tbody]
-          (for [row rows]
-            (into [:tr (row->attrs row)]
-                  (for [k keys]
-                    [:td (get row k)]))))])
+  ([keys rows {:keys [row->attrs describe-key prepare-keys]
+                 :or {row->attrs (constantly {})
+                      describe-key describe-key
+                      prepare-keys prepare-keys}}]
+   (let [ready-keys (prepare-keys keys)]
+     [:table {:class "table table-hover"}
+      [:thead
+       (into [:tr]
+             (for [k ready-keys]
+               [:th (capitalize (describe-key k))]))]
+      (into [:tbody]
+            (for [row rows]
+              (into [:tr (row->attrs row)]
+                    (for [k ready-keys]
+                      [:td (k row)]))))]))
   ([keys rows]
-   (table keys rows {:row->attrs (constantly {})})))
+   (table keys rows {})))
 
 (defn label
   "Creates a pretty Bootstrap label."
