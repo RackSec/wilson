@@ -6,7 +6,7 @@
 (defn describe-key
   [k]
   (if (keyword? k)
-      (name k)
+      (capitalize k)
       (:descr (meta k))))
 
 (defn prepare-keys
@@ -14,7 +14,7 @@
   (map (fn [k]
          (if (vector? k)
            (let [f #(get-in % k)
-                 descr (string/join "." (map name k))]
+                 descr (capitalize (string/join "." (map name k)))]
              (vary-meta f assoc :descr descr))
            k))
        ks))
@@ -30,7 +30,7 @@
       [:thead
        (into [:tr]
              (for [k ready-keys]
-               [:th (capitalize (describe-key k))]))]
+               [:th (describe-key k)]))]
       (into [:tbody]
             (for [row rows]
               (into [:tr (row->attrs row)]
