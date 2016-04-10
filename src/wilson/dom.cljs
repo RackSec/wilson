@@ -7,7 +7,7 @@
   [k]
   (if (keyword? k)
       (capitalize k)
-      (:descr (meta k))))
+      (::descr (meta k))))
 
 (defn prepare-keys
   [ks]
@@ -15,7 +15,7 @@
          (if (vector? k)
            (let [f #(get-in % k)
                  descr (capitalize (string/join "." (map name k)))]
-             (vary-meta f assoc :descr descr))
+             (vary-meta f assoc ::descr descr))
            k))
        ks))
 
