@@ -11,6 +11,12 @@
 
 (defn prepare-keys
   [ks]
+  "Prepares keys for use with wilson.dom/table.
+  `ks` should be a collection of singular keys or vectors of keys
+  pointing at nested data. Vectors are converted into function
+  which (when run on data) will return the data they are poiting at.
+  They also come with a ::descr function in metadata, which describes the
+  path using dot notation (e.g.: [:a :b :c] will become 'A.b.c'."
   (map (fn [k]
          (if (vector? k)
            (let [f #(get-in % k)
@@ -20,7 +26,8 @@
        ks))
 
 (defn table
-  "Creates a table displaying the keys in the given rows of data."
+  "Creates a table displaying the keys in the given rows of data.
+  Accepts singular keys or vectors of keys pointing at nested data."
   ([ks rows {:keys [row->attrs describe-key prepare-keys]
                  :or {row->attrs (constantly {})
                       describe-key describe-key
