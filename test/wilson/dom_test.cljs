@@ -1,7 +1,6 @@
 (ns wilson.dom-test
   (:require [wilson.dom :as d]
-            [cljs.test :refer-macros [is are deftest testing]]
-            [wilson.utils :as u]))
+            [cljs.test :refer-macros [is are deftest testing]]))
 
 (deftest panel-test
   (testing "multi-tag header & contents"
