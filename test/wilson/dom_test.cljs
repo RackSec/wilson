@@ -1,6 +1,6 @@
 (ns wilson.dom-test
   (:require [wilson.dom :as d]
-            [cljs.test :refer-macros [is are deftest testing run-tests]]
+            [cljs.test :refer-macros [is are deftest testing]]
             [wilson.utils :as u]))
 
 (deftest panel-test
