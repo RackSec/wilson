@@ -5,6 +5,7 @@
 
 (defn describe-key
   [k]
+  "Returns a key in a human-readable form."
   (if (keyword? k)
       (capitalize k)
       (::descr (meta k))))
@@ -13,8 +14,7 @@
   [ks]
   "Prepares keys for use with wilson.dom/table.
   `ks` should be a collection of singular keys or vectors of keys
-  pointing at nested data. Vectors are converted into function
-  which (when run on data) will return the data they are poiting at.
+  pointing at nested data. Vectors are interpreted as paths to the relevant data as per `get-in`.
   They also come with a ::descr function in metadata, which describes the
   path using dot notation (e.g.: [:a :b :c] will become 'A.b.c'."
   (map (fn [k]
