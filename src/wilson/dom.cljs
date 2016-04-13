@@ -3,21 +3,48 @@
   (:require [wilson.utils :refer [capitalize]]
             [clojure.string :as string]))
 
+(defn describe-key
+  [k]
+  "Returns a key in a human-readable form."
+  (if (keyword? k)
+      (capitalize k)
+      (::descr (meta k))))
+
+(defn prepare-keys
+  [ks]
+  "Prepares keys for use with wilson.dom/table.
+  `ks` should be a collection of singular keys or vectors of keys
+  pointing at nested data. Vectors are interpreted as paths to the relevant data as per `get-in`.
+  They also come with a ::descr function in metadata, which describes the
+  path using dot notation (e.g.: [:a :b :c] will become 'A.b.c'."
+  (map (fn [k]
+         (if (vector? k)
+           (let [f #(get-in % k)
+                 descr (capitalize (string/join "." (map name k)))]
+             (vary-meta f assoc ::descr descr))
+           k))
+       ks))
+
 (defn table
-  "Creates a table displaying the keys in the given rows of data."
-  ([keys rows {:keys [row->attrs]}]
-   [:table {:class "table table-hover"}
-    [:thead
-     (into [:tr]
-           (for [k keys]
-             [:th (capitalize k)]))]
-    (into [:tbody]
-          (for [row rows]
-            (into [:tr (row->attrs row)]
-                  (for [k keys]
-                    [:td (get row k)]))))])
-  ([keys rows]
-   (table keys rows {:row->attrs (constantly {})})))
+  "Creates a table displaying the keys in the given rows of data.
+  Accepts singular keys or vectors of keys pointing at nested data."
+  ([ks rows {:keys [row->attrs describe-key prepare-keys]
+                 :or {row->attrs (constantly {})
+                      describe-key describe-key
+                      prepare-keys prepare-keys}}]
+   (let [ready-keys (prepare-keys ks)]
+     [:table {:class "table table-hover"}
+      [:thead
+       (into [:tr]
+             (for [k ready-keys]
+               [:th (describe-key k)]))]
+      (into [:tbody]
+            (for [row rows]
+              (into [:tr (row->attrs row)]
+                    (for [k ready-keys]
+                      [:td (k row)]))))]))
+  ([ks rows]
+   (table ks rows {})))
 
 (defn label
   "Creates a pretty Bootstrap label."
