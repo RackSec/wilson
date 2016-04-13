@@ -11,13 +11,13 @@
       (::descr (meta k))))
 
 (defn prepare-keys
-  [ks]
   "Prepares keys for use with wilson.dom/table.
 
   `ks` should be a collection of singular keys or vectors of keys pointing at
   nested data. Vectors are interpreted as paths to the relevant data as per
   `get-in`.  They also come with ::descr metadata, so they will be displayed
   as a dotted path by default, e.g.: [:a :b :c] will become 'A.b.c'."
+  [ks]
   (map (fn [k]
          (if (vector? k)
            (let [f #(get-in % k)
