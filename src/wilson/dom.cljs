@@ -26,6 +26,12 @@
            k))
        ks))
 
+(defn sort-rows
+  [rows sort-fns by-key]
+  (if (contains? sort-fns by-key)
+      ((by-key sort-fns) by-key rows)
+      ((:default sort-fns) by-key rows)))
+
 (defn table
   "Creates a table displaying the keys in the given rows of data.
   Accepts singular keys or vectors of keys pointing at nested data."

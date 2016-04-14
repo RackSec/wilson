@@ -28,6 +28,26 @@
     (is (= (d/label "warning" "Alert!")
            [:span {:class "label label-warning"} "Alert!"]))))
 
+(deftest sort-rows-test
+  (let [rows [{:a 1 :b "B" :c {:x "abc"}}
+              {:a 4 :b "A" :c :y}
+              {:a 3 :b "D" :c {:a "def"}}
+              {:a 2 :b "C" :c :z}]
+        sort-fns {:default (fn [k rows] (sort-by k rows))
+                  :b (fn [k rows] (reverse (sort-by k rows)))}]
+    (testing "default order fuction"
+     (is (= (d/sort-rows rows sort-fns :a)
+            [{:a 1 :b "B" :c {:x "abc"}}
+             {:a 2 :b "C" :c :z}
+             {:a 3 :b "D" :c {:a "def"}}
+             {:a 4 :b "A" :c :y}])))
+    (testing "per-key order fuction"
+     (is (= (d/sort-rows rows sort-fns :b)
+            [{:a 3 :b "D" :c {:a "def"}}
+             {:a 2 :b "C" :c :z}
+             {:a 1 :b "B" :c {:x "abc"}}
+             {:a 4 :b "A" :c :y}])))))
+
 (deftest table-test
   (testing "simple table"
     (is (= (d/table [:a-key :some-key :some-other-key]
