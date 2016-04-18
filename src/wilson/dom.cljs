@@ -50,10 +50,10 @@
   "Creates a table displaying the keys in the given rows of data.
   Accepts singular keys or vectors of keys pointing at nested data."
   ([ks rows {:keys [row->attrs k->attrs describe-key prepare-keys]
-                 :or {row->attrs (constantly {})
-                      k->attrs (constantly {})
-                      describe-key describe-key
-                      prepare-keys prepare-keys}}]
+               :or {row->attrs (constantly {})
+                    k->attrs (constantly {})
+                    describe-key describe-key
+                    prepare-keys prepare-keys}}]
    (let [ready-keys (prepare-keys ks)]
      [:table {:class "table"}
       [:thead
