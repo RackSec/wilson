@@ -49,8 +49,9 @@
 (defn table
   "Creates a table displaying the keys in the given rows of data.
   Accepts singular keys or vectors of keys pointing at nested data."
-  ([ks rows {:keys [row->attrs describe-key prepare-keys]
+  ([ks rows {:keys [row->attrs k->attrs describe-key prepare-keys]
                  :or {row->attrs (constantly {})
+                      k->attrs (constantly {})
                       describe-key describe-key
                       prepare-keys prepare-keys}}]
    (let [ready-keys (prepare-keys ks)]
@@ -58,7 +59,8 @@
       [:thead
        (into [:tr]
              (for [k ready-keys]
-               [:th (describe-key k)]))]
+               [:th (k->attrs k)
+                (describe-key k)]))]
       (into [:tbody]
             (for [row rows]
               (into [:tr (row->attrs row)]
