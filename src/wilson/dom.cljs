@@ -27,6 +27,8 @@
        ks))
 
 (defn get-all-keys
+  "Returns a list of all available keys in a map. Nested branches will
+  be represented as paths to the relevant data (as per `get-in`)."
   [m]
   (when (map? m)
    (mapcat (fn [[k v]]
@@ -37,6 +39,8 @@
            m)))
 
 (defn sort-rows
+  "Sorts rows `by-key` using corresponding sorting function.
+  If `by-key` is not found in `sort-fns` map then `:default` will be used."
   [rows sort-fns by-key]
   (if (contains? sort-fns by-key)
       ((by-key sort-fns) by-key rows)
