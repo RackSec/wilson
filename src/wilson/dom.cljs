@@ -26,6 +26,16 @@
            k))
        ks))
 
+(defn get-all-keys
+  [m]
+  (when (map? m)
+   (mapcat (fn [[k v]]
+            (let [nested (->> (get-all-keys v)
+                              (filter seq)
+                              (map (partial into [k])))]
+              (if (seq nested) nested [[k]])))
+           m)))
+
 (defn sort-rows
   [rows sort-fns by-key]
   (if (contains? sort-fns by-key)
