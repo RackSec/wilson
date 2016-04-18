@@ -54,7 +54,7 @@
                       describe-key describe-key
                       prepare-keys prepare-keys}}]
    (let [ready-keys (prepare-keys ks)]
-     [:table {:class "table table-hover"}
+     [:table {:class "table"}
       [:thead
        (into [:tr]
              (for [k ready-keys]
