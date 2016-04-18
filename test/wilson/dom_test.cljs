@@ -70,7 +70,7 @@
                       :some-key "y"
                       :some-other-key (d/label "warning" "z")
                       :hidden "hidden"}])
-           [:table {:class "table table-hover"}
+           [:table {:class "table"}
             [:thead
              [:tr
               [:th "A key"]
@@ -103,7 +103,7 @@
                       :some-key "y"
                       :hidden "hidden"
                       :a {:b {:c "abc"}}}])
-           [:table {:class "table table-hover"}
+           [:table {:class "table"}
             [:thead
              [:tr
               [:th "A key"]
@@ -141,7 +141,7 @@
                                    "j" {:class "warning"}
                                    "r" {:class "success"}
                                    {:class "info"}))})
-           [:table {:class "table table-hover"}
+           [:table {:class "table"}
             [:thead
              [:tr
               [:th "A key"]
