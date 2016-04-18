@@ -4,8 +4,8 @@
             [clojure.string :as string]))
 
 (defn describe-key
-  [k]
   "Returns a key in a human-readable form."
+  [k]
   (if (keyword? k)
       (capitalize k)
       (::descr (meta k))))
