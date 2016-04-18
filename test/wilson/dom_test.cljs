@@ -73,9 +73,9 @@
            [:table {:class "table"}
             [:thead
              [:tr
-              [:th "A key"]
-              [:th "Some key"]
-              [:th "Some other key"]]]
+              [:th {} "A key"]
+              [:th {} "Some key"]
+              [:th {} "Some other key"]]]
             [:tbody
              [:tr {}
               [:td (d/label "warning" "h")]
@@ -106,9 +106,9 @@
            [:table {:class "table"}
             [:thead
              [:tr
-              [:th "A key"]
-              [:th "Some key"]
-              [:th "A.b.c"]]]
+              [:th {} "A key"]
+              [:th {} "Some key"]
+              [:th {} "A.b.c"]]]
             [:tbody
              [:tr {}
               [:td (d/label "warning" "h")]
@@ -144,9 +144,9 @@
            [:table {:class "table"}
             [:thead
              [:tr
-              [:th "A key"]
-              [:th "Some key"]
-              [:th "Some other key"]]]
+              [:th {} "A key"]
+              [:th {} "Some key"]
+              [:th {} "Some other key"]]]
             [:tbody
              [:tr {:class "warning"}
               [:td (d/label "warning" "h")]
