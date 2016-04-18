@@ -28,6 +28,13 @@
     (is (= (d/label "warning" "Alert!")
            [:span {:class "label label-warning"} "Alert!"]))))
 
+(deftest get-all-keys-test
+  (testing "getting all keys from nested map"
+    (is (= (d/get-all-keys {:a {:b "abc"}
+                            :c 123
+                            :d {:e {:f "abc"}}})
+           [[:a :b] [:c] [:d :e :f]]))))
+
 (deftest sort-rows-test
   (let [rows [{:a 1 :b "B" :c {:x "abc"}}
               {:a 4 :b "A" :c :y}
