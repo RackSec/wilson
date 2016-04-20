@@ -57,7 +57,7 @@
 
 (deftest table-test
   (testing "simple table"
-    (is (= (d/table [:a-key :some-key :some-other-key]
+    (is (= (d/table (d/prepare-keys [:a-key :some-key :some-other-key])
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
                       :some-other-key "j"
@@ -90,7 +90,7 @@
               [:td "y"]
               [:td (d/label "warning" "z")]]]])))
   (testing "table with nested data"
-    (is (= (d/table [:a-key :some-key [:a :b :c]]
+    (is (= (d/table (d/prepare-keys [:a-key :some-key [:a :b :c]])
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
                       :hidden "hidden"
@@ -123,7 +123,7 @@
               [:td "y"]
               [:td "abc"]]]])))
   (testing "table with per-row clases"
-    (is (= (d/table [:a-key :some-key :some-other-key]
+    (is (= (d/table (d/prepare-keys [:a-key :some-key :some-other-key])
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
                       :some-other-key "j"
