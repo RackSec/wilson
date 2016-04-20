@@ -52,20 +52,18 @@
   ([ks rows {:keys [row->attrs k->attrs describe-key prepare-keys]
                :or {row->attrs (constantly {})
                     k->attrs (constantly {})
-                    describe-key describe-key
-                    prepare-keys prepare-keys}}]
-   (let [ready-keys (prepare-keys ks)]
-     [:table {:class "table"}
-      [:thead
-       (into [:tr]
-             (for [k ready-keys]
-               [:th (k->attrs k)
-                (describe-key k)]))]
-      (into [:tbody]
-            (for [row rows]
-              (into [:tr (row->attrs row)]
-                    (for [k ready-keys]
-                      [:td (k row)]))))]))
+                    describe-key describe-key}}]
+   [:table {:class "table"}
+    [:thead
+     (into [:tr]
+           (for [k ks]
+             [:th (k->attrs k)
+              (describe-key k)]))]
+    (into [:tbody]
+          (for [row rows]
+            (into [:tr (row->attrs row)]
+                  (for [k ks]
+                    [:td (k row)]))))])
   ([ks rows]
    (table ks rows {})))
 
