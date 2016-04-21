@@ -28,9 +28,36 @@
     (is (= (d/label "warning" "Alert!")
            [:span {:class "label label-warning"} "Alert!"]))))
 
+(deftest get-all-keys-test
+  (testing "getting all keys from nested map"
+    (is (= (d/get-all-keys {:a {:b "abc"}
+                            :c 123
+                            :d {:e {:f "abc"}}})
+           [[:a :b] [:c] [:d :e :f]]))))
+
+(deftest sort-rows-test
+  (let [rows [{:a 1 :b "B" :c {:x "abc"}}
+              {:a 4 :b "A" :c :y}
+              {:a 3 :b "D" :c {:a "def"}}
+              {:a 2 :b "C" :c :z}]
+        sort-fns {:default (fn [k rows] (sort-by k rows))
+                  :b (fn [k rows] (reverse (sort-by k rows)))}]
+    (testing "default order fuction"
+     (is (= (d/sort-rows rows sort-fns :a)
+            [{:a 1 :b "B" :c {:x "abc"}}
+             {:a 2 :b "C" :c :z}
+             {:a 3 :b "D" :c {:a "def"}}
+             {:a 4 :b "A" :c :y}])))
+    (testing "per-key order fuction"
+     (is (= (d/sort-rows rows sort-fns :b)
+            [{:a 3 :b "D" :c {:a "def"}}
+             {:a 2 :b "C" :c :z}
+             {:a 1 :b "B" :c {:x "abc"}}
+             {:a 4 :b "A" :c :y}])))))
+
 (deftest table-test
   (testing "simple table"
-    (is (= (d/table [:a-key :some-key :some-other-key]
+    (is (= (d/table (d/prepare-keys [:a-key :some-key :some-other-key])
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
                       :some-other-key "j"
@@ -43,12 +70,12 @@
                       :some-key "y"
                       :some-other-key (d/label "warning" "z")
                       :hidden "hidden"}])
-           [:table {:class "table table-hover"}
+           [:table {:class "table"}
             [:thead
              [:tr
-              [:th "A key"]
-              [:th "Some key"]
-              [:th "Some other key"]]]
+              [:th {} "A key"]
+              [:th {} "Some key"]
+              [:th {} "Some other key"]]]
             [:tbody
              [:tr {}
               [:td (d/label "warning" "h")]
@@ -63,7 +90,7 @@
               [:td "y"]
               [:td (d/label "warning" "z")]]]])))
   (testing "table with nested data"
-    (is (= (d/table [:a-key :some-key [:a :b :c]]
+    (is (= (d/table (d/prepare-keys [:a-key :some-key [:a :b :c]])
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
                       :hidden "hidden"
@@ -76,12 +103,12 @@
                       :some-key "y"
                       :hidden "hidden"
                       :a {:b {:c "abc"}}}])
-           [:table {:class "table table-hover"}
+           [:table {:class "table"}
             [:thead
              [:tr
-              [:th "A key"]
-              [:th "Some key"]
-              [:th "A.b.c"]]]
+              [:th {} "A key"]
+              [:th {} "Some key"]
+              [:th {} "A.b.c"]]]
             [:tbody
              [:tr {}
               [:td (d/label "warning" "h")]
@@ -96,7 +123,7 @@
               [:td "y"]
               [:td "abc"]]]])))
   (testing "table with per-row clases"
-    (is (= (d/table [:a-key :some-key :some-other-key]
+    (is (= (d/table (d/prepare-keys [:a-key :some-key :some-other-key])
                     [{:a-key (d/label "warning" "h")
                       :some-key "i"
                       :some-other-key "j"
@@ -114,12 +141,12 @@
                                    "j" {:class "warning"}
                                    "r" {:class "success"}
                                    {:class "info"}))})
-           [:table {:class "table table-hover"}
+           [:table {:class "table"}
             [:thead
              [:tr
-              [:th "A key"]
-              [:th "Some key"]
-              [:th "Some other key"]]]
+              [:th {} "A key"]
+              [:th {} "Some key"]
+              [:th {} "Some other key"]]]
             [:tbody
              [:tr {:class "warning"}
               [:td (d/label "warning" "h")]

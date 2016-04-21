@@ -4,8 +4,8 @@
             [clojure.string :as string]))
 
 (defn describe-key
-  [k]
   "Returns a key in a human-readable form."
+  [k]
   (if (keyword? k)
       (capitalize k)
       (::descr (meta k))))
@@ -26,24 +26,44 @@
            k))
        ks))
 
+(defn get-all-keys
+  "Returns a list of all available keys in a map. Nested branches will
+  be represented as paths to the relevant data (as per `get-in`)."
+  [m]
+  (when (map? m)
+   (mapcat (fn [[k v]]
+            (let [nested (->> (get-all-keys v)
+                              (filter seq)
+                              (map (partial into [k])))]
+              (if (seq nested) nested [[k]])))
+           m)))
+
+(defn sort-rows
+  "Sorts rows `by-key` using corresponding sorting function.
+  If `by-key` is not found in `sort-fns` map then `:default` will be used."
+  [rows sort-fns by-key]
+  (if (contains? sort-fns by-key)
+      ((by-key sort-fns) by-key rows)
+      ((:default sort-fns) by-key rows)))
+
 (defn table
   "Creates a table displaying the keys in the given rows of data.
   Accepts singular keys or vectors of keys pointing at nested data."
-  ([ks rows {:keys [row->attrs describe-key prepare-keys]
-                 :or {row->attrs (constantly {})
-                      describe-key describe-key
-                      prepare-keys prepare-keys}}]
-   (let [ready-keys (prepare-keys ks)]
-     [:table {:class "table table-hover"}
-      [:thead
-       (into [:tr]
-             (for [k ready-keys]
-               [:th (describe-key k)]))]
-      (into [:tbody]
-            (for [row rows]
-              (into [:tr (row->attrs row)]
-                    (for [k ready-keys]
-                      [:td (k row)]))))]))
+  ([ks rows {:keys [row->attrs k->attrs describe-key prepare-keys]
+               :or {row->attrs (constantly {})
+                    k->attrs (constantly {})
+                    describe-key describe-key}}]
+   [:table {:class "table"}
+    [:thead
+     (into [:tr]
+           (for [k ks]
+             [:th (k->attrs k)
+              (describe-key k)]))]
+    (into [:tbody]
+          (for [row rows]
+            (into [:tr (row->attrs row)]
+                  (for [k ks]
+                    [:td (k row)]))))])
   ([ks rows]
    (table ks rows {})))
 
