@@ -35,6 +35,32 @@ Display simple table with selected columns:
  {:a 4 :b 5 :c {:d "e"}}])
 ```
 
+Result:
+
+```clojure
+[:table {:class "table"}
+ [:thead
+  [:tr
+   [:th {} "A"]
+   [:th {} "C.d"]]]
+ [:tbody
+  [:tr {}
+   [:td 1]
+   [:td "a"]]
+  [:tr {}
+   [:td 3]
+   [:td "b"]]
+  [:tr {}
+   [:td 8]
+   [:td "c"]]
+  [:tr {}
+   [:td 2]
+   [:td "d"]]
+  [:tr {}
+   [:td 4]
+   [:td "e"]]]]
+```
+
 ### Sorted rows
 Sort table rows using `wilson.dom/sort-rows` by key `:a`:
 
@@ -57,6 +83,32 @@ Sort table rows using `wilson.dom/sort-rows` by key `:a`:
  sorted-rows)
 ```
 
+Result:
+
+```clojure
+[:table {:class "table"}
+ [:thead
+  [:tr
+   [:th {} "A"]
+   [:th {} "C.d"]]]
+ [:tbody
+ [:tr {}
+  [:td 1]
+  [:td "a"]]
+ [:tr {}
+  [:td 2]
+  [:td "d"]]
+ [:tr {}
+  [:td 3]
+  [:td "b"]]
+ [:tr {}
+  [:td 4]
+  [:td "e"]]
+ [:tr {}
+  [:td 8]
+  [:td "c"]]]]
+```
+
 ### Display all available columns
 Instead of typing columns by hand, you can use `wilson.dom/get-all-keys`:
 
@@ -74,6 +126,12 @@ Instead of typing columns by hand, you can use `wilson.dom/get-all-keys`:
 (d/table
  (d/prepare-keys all-ks)
  rows)
+```
+
+`all-ks` will be equal to:
+
+```clojure
+[[:a] [:b] [:c :d]]
 ```
 
 ### Advanced usage
