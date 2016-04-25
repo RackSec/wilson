@@ -84,19 +84,20 @@ In this example we will add on-click handlers on table headers to sort the rows
 (:require [wilson.dom :as d]
           [reagent.core :as r])
 
-(def ks (prepare-keys [:a :b [:c :d]]))
+(def ks (d/prepare-keys [:a :b [:c :d]]))
 
 (defonce state
   (r/atom {:sort-key (first ks)
-                 :sort-order :asc}))
+           :sort-order :asc}))
 
-(defn table-component [state]
+(defn table-component
+  [state]
   (let [rows [{:a 1 :b 1 :c {:d "a"}}
               {:a 3 :b 2 :c {:d "b"}}
               {:a 8 :b 3 :c {:d "c"}}
               {:a 2 :b 4 :c {:d "d"}}
               {:a 4 :b 5 :c {:d "e"}}]
-        sorted-rows (sort-rows
+        sorted-rows (d/sort-rows
                      rows
                      {:default (fn [k rows] (if (= (:sort-order @state) :asc)
                                               (sort-by k rows)
@@ -112,7 +113,7 @@ In this example we will add on-click handlers on table headers to sort the rows
                                            :asc)}))
         update-state-order #(swap! state merge (get-new-order state %))]
    (with-class "sorted-table"
-    (table
+    (d/table
      ks
      sorted-rows
      {:k->attrs (fn [k]
