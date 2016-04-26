@@ -46,13 +46,21 @@
       ((by-key sort-fns) by-key rows)
       ((:default sort-fns) by-key rows)))
 
+(defn parse-td-data
+  [x]
+  (if (not (or (vector? x) (string? x)))
+    (str x)
+    x))
+
 (defn table
   "Creates a table displaying the keys in the given rows of data.
   Accepts singular keys or vectors of keys pointing at nested data."
-  ([ks rows {:keys [row->attrs k->attrs describe-key prepare-keys]
+  ([ks rows {:keys [row->attrs k->attrs describe-key prepare-keys
+                    data->hiccup]
                :or {row->attrs (constantly {})
                     k->attrs (constantly {})
-                    describe-key describe-key}}]
+                    describe-key describe-key
+                    data->hiccup parse-td-data}}]
    [:table {:class "table"}
     [:thead
      (into [:tr]
@@ -63,7 +71,8 @@
           (for [row rows]
             (into [:tr (row->attrs row)]
                   (for [k ks]
-                    [:td (k row)]))))])
+                    (let [td-data (k row)]
+                      [:td (data->hiccup td-data)])))))])
   ([ks rows]
    (table ks rows {})))
 
