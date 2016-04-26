@@ -113,11 +113,11 @@
              [:tr {}
               [:td (d/label "warning" "h")]
               [:td "i"]
-              [:td 123]]
+              [:td "123"]]
              [:tr {}
               [:td "p"]
               [:td (d/label "warning" "q")]
-              [:td 456]]
+              [:td "456"]]
              [:tr {}
               [:td "x"]
               [:td "y"]
@@ -159,7 +159,23 @@
              [:tr {:class "info"}
               [:td "x"]
               [:td "y"]
-              [:td (d/label "warning" "z")]]]]))))
+              [:td (d/label "warning" "z")]]]])))
+  (testing "boolean values are strings"
+    (is (= (d/table (d/prepare-keys [:a :b :c])
+                    [{:a "abc"
+                      :b false
+                      :c true}])
+           [:table {:class "table"}
+              [:thead
+               [:tr
+                [:th {} "A"]
+                [:th {} "B"]
+                [:th {} "C"]]]
+              [:tbody
+               [:tr {}
+                [:td "abc"]
+                [:td "false"]
+                [:td "true"]]]]))))
 
 (deftest button-test
   (let [t "Some text"
