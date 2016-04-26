@@ -49,7 +49,7 @@
 (defn parse-td-data
   [x]
   (if (not (or (vector? x) (string? x)))
-    (str x)
+    (pr-str x)
     x))
 
 (defn table
