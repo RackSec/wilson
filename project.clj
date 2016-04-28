@@ -19,7 +19,8 @@
                  [hiccup "1.0.5"]
                  [environ "1.0.0"]
                  [org.clojure/clojurescript "0.0-3308" :scope "provided"]
-                 [secretary "1.2.3"]]
+                 [secretary "1.2.3"]
+                 [org.clojure/core.match "0.3.0-alpha4"]]
 
   :plugins [[lein-environ "1.0.0"]
             [lein-auto "0.1.2"]
