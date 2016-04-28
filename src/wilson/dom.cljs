@@ -47,6 +47,8 @@
       ((:default sort-fns) by-key rows)))
 
 (defn parse-td-data
+  "Return booleans (and other data other than actual strings or vectors).
+  Used in table to make sure everything is displayed in the browser."
   [x]
   (if-not (or (vector? x) (string? x))
     (pr-str x)
