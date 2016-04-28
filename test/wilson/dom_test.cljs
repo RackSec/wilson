@@ -1,6 +1,7 @@
 (ns wilson.dom-test
   (:require [wilson.dom :as d]
-            [cljs.test :refer-macros [is are deftest testing]]))
+            [cljs.test :refer-macros [is are deftest testing]]
+            [cljs.core.match :refer-macros [match]]))
 
 (deftest panel-test
   (testing "multi-tag header & contents"
@@ -182,34 +183,15 @@
               {:a 4 :b "A" :c 2}
               {:a 3 :b "D" :c 4}]
         ks (d/prepare-keys [:a :b :c])
-        state {:sort-key :a
-               :sort-order :asc}
         component (d/sorted-table
-                    ks
-                    rows
-                    (:sort-key state)
-                    (:sort-order state))]
-    (testing "sorted table"
-      (is (= component
-           [:table {:class "table"}
-              [:thead
-               [:tr
-                [:th {:class "asc"} "A"]
-                [:th {} "B"]
-                [:th {} "C"]]]
-              [:tbody
-               [:tr {}
-                [:td "1"]
-                [:td "B"]
-                [:td "-6"]]
-               [:tr {}
-                [:td "2"]
-                [:td "C"]
-                [:td "1"]]
-               [:tr {}
-                [:td "3"]
-                [:td "D"]
-                [:td "4"]]]])))))
+                   ks
+                   rows)
+        [headers rows] (match component
+                        [:table _
+                         [:thead
+                          [:tr & headers]]
+                         [:tbody & rows]]
+                        [headers rows])]))
 
 (deftest button-test
   (let [t "Some text"
