@@ -48,7 +48,7 @@
 
 (defn parse-td-data
   [x]
-  (if (not (or (vector? x) (string? x)))
+  (if-not (or (vector? x) (string? x))
     (pr-str x)
     x))
 
