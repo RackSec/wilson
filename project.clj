@@ -50,14 +50,11 @@
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.5"]
                         [leiningen-core "2.6.1"]
-                        [org.clojure/tools.nrepl "0.2.12"]
-                        [pjstadig/humane-test-output "0.8.0"]]
+                        [org.clojure/tools.nrepl "0.2.12"]]
          :source-paths ["env/dev/clj"]
          :plugins [[lein-figwheel "0.5.2"]
                    [lein-cljsbuild "1.1.3"]
                    [lein-doo "0.1.6"]]
-         :injections [(require 'pjstadig.humane-test-output)
-                      (pjstadig.humane-test-output/activate!)]
          :figwheel {:http-server-root "public"
                     :server-port 3449
                     :nrepl-port 7002
