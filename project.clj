@@ -19,8 +19,7 @@
                  [ring/ring-devel "1.4.0"]
                  [ring/ring-defaults "0.2.0"]
                  [prone "1.1.1"]
-                 [compojure "1.5.0"]
-                 [environ "1.0.2"]]
+                 [compojure "1.5.0"]]
 
   :plugins [[lein-environ "1.0.2"]
             [lein-asset-minifier "0.2.8"]]
