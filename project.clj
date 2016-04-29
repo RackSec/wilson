@@ -36,7 +36,8 @@
                                         :pretty-print true}}}}
 
   :repl-options {:init-ns figwheel-sidecar.repl-api
-                 :init (figwheel-sidecar.repl-api/cljs-repl)}
+                 :init (figwheel-sidecar.repl-api/cljs-repl)
+                 :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
 
   :profiles
   {:dev {:dependencies [[org.clojure/clojure "1.8.0"]
@@ -48,7 +49,8 @@
                         [prone "1.1.1"]
                         [compojure "1.5.0"]
 
-                        [figwheel-sidecar "0.5.2"]]
+                        [figwheel-sidecar "0.5.2"]
+                        [com.cemerick/piggieback "0.2.1"]]
          :source-paths ["env/dev/clj"]
          :plugins [[lein-figwheel "0.5.2"]
                    [lein-cljsbuild "1.1.3"]
