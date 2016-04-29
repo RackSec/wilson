@@ -25,12 +25,9 @@
   :plugins [[lein-environ "1.0.2"]
             [lein-asset-minifier "0.2.8"]]
 
-  ;; HACK: https://github.com/technomancy/leiningen/issues/1940
-  :aliases {"test" ["test" "wilson.utils-test"]}
-
   :ring {:handler wilson.handler/app}
 
-  :min-lein-version "2.5.0"
+  :min-lein-version "2.6.1"
 
   :clean-targets
   ^{:protect false} [[:cljsbuild :builds :app :compiler :output-dir]
@@ -55,8 +52,7 @@
                         [leiningen-core "2.6.1"]
                         [lein-figwheel "0.5.2"]
                         [org.clojure/tools.nrepl "0.2.12"]
-                        [pjstadig/humane-test-output "0.8.0"]
-                        [doo "0.1.6"]]
+                        [pjstadig/humane-test-output "0.8.0"]]
          :source-paths ["env/dev/clj"]
          :plugins [[lein-figwheel "0.5.2"]
                    [lein-cljsbuild "1.1.3"]
