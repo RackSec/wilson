@@ -35,8 +35,8 @@
                                         :optimizations :none
                                         :pretty-print true}}}}
 
-  ;; :repl-options {:init-ns figwheel-sidecar.repl-api
-  ;;                :init (figwheel-sidecar.repl-api/cljs-repl)}
+  :repl-options {:init-ns figwheel-sidecar.repl-api
+                 :init (figwheel-sidecar.repl-api/cljs-repl)}
 
   :profiles
   {:dev {:dependencies [[org.clojure/clojure "1.8.0"]
