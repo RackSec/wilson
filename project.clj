@@ -7,7 +7,7 @@
   :deploy-repositories [["releases" :clojars]
                         ["snapshots" :clojars]]
 
-  :dependencies [[org.clojure/clojure "1.7.0"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring-server "0.4.0"]
                  [ring/ring-devel "1.4.0"]
                  [cljsjs/react "0.13.3-1"]
