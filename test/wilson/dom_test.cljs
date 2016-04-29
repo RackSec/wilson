@@ -183,15 +183,14 @@
               {:a 4 :b "A" :c 2}
               {:a 3 :b "D" :c 4}]
         ks (d/prepare-keys [:a :b :c])
-        component (d/sorted-table
-                   ks
-                   rows)
+        component (d/sorted-table ks rows)
         [headers rows] (match component
-                        [:table _
-                         [:thead
-                          [:tr & headers]]
-                         [:tbody & rows]]
-                        [headers rows])]))
+                         [:table _
+                          [:thead
+                           [:tr & headers]]
+                          [:tbody & rows]]
+                         [headers rows])]
+    [headers rows]))
 
 (deftest button-test
   (let [t "Some text"
