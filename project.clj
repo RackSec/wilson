@@ -27,15 +27,26 @@
                   {"resources/public/css/site.min.css"
                    "resources/public/css/site.css"}}
 
-  :cljsbuild {:builds {:app {:source-paths ["src/"]
+  :cljsbuild {:builds {:app {:source-paths ["src/" "env/"]
                              :compiler {:output-to "resources/public/js/app.js"
                                         :output-dir "resources/public/js/out"
                                         :asset-path "js/out"
-                                        :optimizations :none
-                                        :pretty-print true}}}}
+                                        :pretty-print true
+                                        :source-map true
+                                        :main "wilson.dev"}}
+                       :test {:source-paths ["src/"  "test/"]
+                              :compiler {:output-to "target/test.js"
+                                         :optimizations :whitespace
+                                         :pretty-print true}}}}
 
-  :repl-options {:init-ns figwheel-sidecar.repl-api
-                 :init (figwheel-sidecar.repl-api/cljs-repl)
+  :figwheel {:http-server-root "public"
+             :server-port 3449
+             :css-dirs ["resources/public/css"]
+             :ring-handler wilson.handler/app}
+
+  :repl-options {:init (do (require 'figwheel-sidecar.repl-api)
+                           (figwheel-sidecar.repl-api/start-figwheel!)
+                           (figwheel-sidecar.repl-api/cljs-repl))
                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
 
   :profiles
@@ -52,20 +63,8 @@
 
                         [figwheel-sidecar "0.5.2"]
                         [com.cemerick/piggieback "0.2.1"]]
-         :source-paths ["env/dev/clj"]
          :plugins [[lein-figwheel "0.5.2"]
                    [lein-cljsbuild "1.1.3"]
                    [lein-doo "0.1.6"]]
-         :figwheel {:http-server-root "public"
-                    :server-port 3449
-                    :css-dirs ["resources/public/css"]
-                    :ring-handler wilson.handler/app}
-         :env {:dev true}
-         :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
-                                    :compiler {:main "wilson.dev"
-                                               :source-map true}}
-                              :test {:source-paths ["src/"  "test/"]
-                                     :compiler {:output-to "target/test.js"
-                                                :optimizations :whitespace
-                                                :pretty-print true}}}}}
+         :env {:dev true}}
    :uberjar {:aot :all}})
