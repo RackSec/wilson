@@ -11,15 +11,7 @@
                  [reagent "0.5.1"]
                  [cljsjs/react "15.0.1-1"]
                  [hiccup "1.0.5"]
-                 [secretary "1.2.3"]
-
-                 [org.clojure/clojure "1.8.0"]
-                 [ring "1.4.0"]
-                 [ring-server "0.4.0"]
-                 [ring/ring-devel "1.4.0"]
-                 [ring/ring-defaults "0.2.0"]
-                 [prone "1.1.1"]
-                 [compojure "1.5.0"]]
+                 [secretary "1.2.3"]]
 
   :plugins [[lein-environ "1.0.2"]
             [lein-asset-minifier "0.2.8"]]
@@ -47,7 +39,14 @@
   ;;                :init (figwheel-sidecar.repl-api/cljs-repl)}
 
   :profiles
-  {:dev {:dependencies [[ring-mock "0.1.5"]]
+  {:dev {:dependencies [[org.clojure/clojure "1.8.0"]
+                        [ring "1.4.0"]
+                        [ring-server "0.4.0"]
+                        [ring/ring-devel "1.4.0"]
+                        [ring/ring-defaults "0.2.0"]
+                        [ring-mock "0.1.5"]
+                        [prone "1.1.1"]
+                        [compojure "1.5.0"]]
          :source-paths ["env/dev/clj"]
          :plugins [[lein-figwheel "0.5.2"]
                    [lein-cljsbuild "1.1.3"]
