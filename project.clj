@@ -48,9 +48,7 @@
   ;;                :init (figwheel-sidecar.repl-api/cljs-repl)}
 
   :profiles
-  {:dev {:dependencies [[ring-mock "0.1.5"]
-                        [leiningen-core "2.6.1"]
-                        [org.clojure/tools.nrepl "0.2.12"]]
+  {:dev {:dependencies [[ring-mock "0.1.5"]]
          :source-paths ["env/dev/clj"]
          :plugins [[lein-figwheel "0.5.2"]
                    [lein-cljsbuild "1.1.3"]
