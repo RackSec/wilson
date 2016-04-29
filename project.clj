@@ -23,7 +23,7 @@
 
   :plugins [[lein-environ "1.0.2"]
             [lein-auto "0.1.2"]
-            [lein-asset-minifier "0.2.2"]]
+            [lein-asset-minifier "0.2.8"]]
 
   ;; HACK: https://github.com/technomancy/leiningen/issues/1940
   :aliases {"test" ["test" "wilson.utils-test"]}
