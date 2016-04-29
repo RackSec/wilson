@@ -58,9 +58,9 @@
                         [pjstadig/humane-test-output "0.8.0"]
                         [doo "0.1.6"]]
          :source-paths ["env/dev/clj"]
-         :plugins [[lein-figwheel "0.3.3"]
                    [lein-cljsbuild "1.0.6"]
                    [lein-doo "0.1.1-SNAPSHOT"]]
+         :plugins [[lein-figwheel "0.5.2"]
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
          :figwheel {:http-server-root "public"
