@@ -46,7 +46,9 @@
                         [ring/ring-defaults "0.2.0"]
                         [ring-mock "0.1.5"]
                         [prone "1.1.1"]
-                        [compojure "1.5.0"]]
+                        [compojure "1.5.0"]
+
+                        [figwheel-sidecar "0.5.2"]]
          :source-paths ["env/dev/clj"]
          :plugins [[lein-figwheel "0.5.2"]
                    [lein-cljsbuild "1.1.3"]
