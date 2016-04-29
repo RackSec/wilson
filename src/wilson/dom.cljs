@@ -1,7 +1,8 @@
 (ns wilson.dom
   "Tools for building DOMs."
   (:require [wilson.utils :refer [capitalize]]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [reagent.core :as r]))
 
 (defn describe-key
   "Returns a key in a human-readable form."
@@ -77,6 +78,38 @@
                       [:td (data->hiccup td-data)])))))])
   ([ks rows]
    (table ks rows {})))
+
+
+(defn sorted-table
+  ([ks rows opts]
+   (let [state (r/atom {:sort-key (first ks)
+                        :sort-order :asc})
+         state-deref @state
+         sort-fns (or (:sort-fns opts)
+                      {:default (fn [k rows]
+                                  (if (= (:sort-order state-deref) :asc)
+                                      (sort-by k rows)
+                                      (reverse (sort-by k rows))))})
+         sorted-rows (sort-rows rows sort-fns (:sort-key state-deref))
+         get-new-order (fn [state k]
+                        (let [state-deref @state
+                              sort-key (:sort-key state-deref)
+                              sort-order (:sort-order state-deref)
+                              swap-order {:asc :desc :desc :asc}]
+                          {:sort-key k
+                           :sort-order (if (= sort-key k)
+                                           (swap-order sort-order)
+                                           :asc)}))
+         update-state-order #(swap! state merge (get-new-order state %))
+         default-opts {:k->attrs (fn [k]
+                                  (let [state @state]
+                                    {:class
+                                     (when (= k (:sort-key state))
+                                            (name (:sort-order state)))
+                                     :on-click #(update-state-order k)}))}]
+     (table ks sorted-rows (merge default-opts opts))))
+  ([ks rows]
+   (sorted-table ks rows {})))
 
 (defn label
   "Creates a pretty Bootstrap label."
