@@ -49,6 +49,8 @@
                         [prone "1.1.1"]
                         [compojure "1.5.0"]
 
+                        [environ "1.0.2"]
+
                         [figwheel-sidecar "0.5.2"]
                         [com.cemerick/piggieback "0.2.1"]]
          :source-paths ["env/dev/clj"]
