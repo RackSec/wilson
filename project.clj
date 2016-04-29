@@ -44,9 +44,10 @@
              :css-dirs ["resources/public/css"]
              :ring-handler wilson.handler/app}
 
-  :repl-options {:init (do (require 'figwheel-sidecar.repl-api)
-                           (figwheel-sidecar.repl-api/start-figwheel!)
-                           (figwheel-sidecar.repl-api/cljs-repl))
+  ;; (figwheel-sidecar.repl-api/start-figwheel!)
+  ;; (figwheel-sidecar.repl-api/cljs-repl)
+
+  :repl-options {:init (use 'figwheel-sidecar.repl-api)
                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
 
   :profiles
