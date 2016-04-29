@@ -178,16 +178,12 @@
                 [:td "false"]
                 [:td "true"]]]]))))
 
-(def sorted-table-rows
-  [{:a 1 :b "B" :c -6}
-   {:a 4 :b "A" :c 2}
-   {:a 3 :b "D" :c 4}])
-
-(def sorted-table-ks
-  (d/prepare-keys [:a :b :c]))
-
 (deftest sorted-table-test
-  (let [component (d/sorted-table sorted-table-ks sorted-table-rows)
+  (let [sorted-table-rows [{:a 1 :b "B" :c -6}
+                           {:a 4 :b "A" :c 2}
+                           {:a 3 :b "D" :c 4}]
+        sorted-table-ks (d/prepare-keys [:a :b :c])
+        component (d/sorted-table sorted-table-ks sorted-table-rows)
         [headers rows] (match component
                          [:table _
                           [:thead
