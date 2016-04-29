@@ -53,10 +53,10 @@
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.5"]
                         [pjstadig/humane-test-output "0.7.0"]
-                        [doo "0.1.1-SNAPSHOT"]]
                         [leiningen-core "2.6.1"]
                         [lein-figwheel "0.5.2"]
                         [org.clojure/tools.nrepl "0.2.12"]
+                        [doo "0.1.6"]]
          :source-paths ["env/dev/clj"]
          :plugins [[lein-figwheel "0.3.3"]
                    [lein-cljsbuild "1.0.6"]
