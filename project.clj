@@ -9,7 +9,6 @@
 
   :dependencies [[org.clojure/clojurescript "1.8.51" :scope "provided"]
                  [reagent "0.5.1"]
-                 [cljsjs/react "15.0.1-1"]
                  [hiccup "1.0.5"]
                  [secretary "1.2.3"]]
 
