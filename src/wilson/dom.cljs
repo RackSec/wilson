@@ -81,35 +81,38 @@
 
 
 (defn sorted-table
-  ([ks rows opts]
-   (let [state (r/atom {:sort-key (first ks)
-                        :sort-order :asc})
-         state-deref @state
-         sort-fns (or (:sort-fns opts)
+  ([ks rows state opts]
+   (let [sort-key-id (gensym "wilson-order-key")
+         sort-order-id (gensym "wilson-order-key")]
+     (swap! state merge {sort-key-id (first ks)
+                         sort-order-id :asc})
+     (fn []
+       (let [state-deref @state
+             sort-fns (or (:sort-fns opts)
                       {:default (fn [k rows]
-                                  (if (= (:sort-order state-deref) :asc)
+                                  (if (= (sort-order-id state-deref) :asc)
                                       (sort-by k rows)
                                       (reverse (sort-by k rows))))})
-         sorted-rows (sort-rows rows sort-fns (:sort-key state-deref))
-         get-new-order (fn [state k]
-                        (let [state-deref @state
-                              sort-key (:sort-key state-deref)
-                              sort-order (:sort-order state-deref)
-                              swap-order {:asc :desc :desc :asc}]
-                          {:sort-key k
-                           :sort-order (if (= sort-key k)
-                                           (swap-order sort-order)
-                                           :asc)}))
-         update-state-order #(swap! state merge (get-new-order state %))
-         default-opts {:k->attrs (fn [k]
-                                  (let [state @state]
-                                    {:class
-                                     (when (= k (:sort-key state))
-                                            (name (:sort-order state)))
-                                     :on-click #(update-state-order k)}))}]
-     (table ks sorted-rows (merge default-opts opts))))
-  ([ks rows]
-   (sorted-table ks rows {})))
+             sorted-rows (sort-rows rows sort-fns (sort-key-id state-deref))
+             get-new-order
+              (fn [state k]
+               (let [state-deref @state
+                     swap-order {:asc :desc :desc :asc}]
+                {sort-key-id k
+                 sort-order-id (if (= (sort-key-id state-deref) k)
+                                    (swap-order (sort-order-id state-deref))
+                                    :asc)}))
+             update-state-order #(swap! state merge (get-new-order state %))
+             default-opts {:k->attrs
+                           (fn [k]
+                            (let [state-deref @state]
+                              {:class
+                               (when (= k (sort-key-id state-deref))
+                                      (name (sort-order-id state-deref)))
+                               :on-click #(update-state-order k)}))}]
+         (table ks sorted-rows (merge default-opts opts))))))
+  ([ks rows state]
+   (sorted-table ks rows state {})))
 
 (defn label
   "Creates a pretty Bootstrap label."
