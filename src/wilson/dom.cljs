@@ -81,6 +81,13 @@
 
 
 (defn sorted-table
+  "Returns a sortable table (using `wilson.dom/table`) with rows sorted using
+  `wilson.dom/sort-rows`. Table headers will have an on-click handler that
+  will change the sorting key and/or order (those values are saved under
+  unique names in the passed state). You can pass the same options map that
+  `wilson.dom/table` would accept. In addition, you can extend options map
+  with `:sort-fns` - its value will get passed directly to
+  `wilson.dom/sort-rows."
   ([ks rows state opts]
    (let [sort-key-id (gensym "wilson-order-key")
          sort-order-id (gensym "wilson-order-key")]
