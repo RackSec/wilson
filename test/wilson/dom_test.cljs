@@ -1,7 +1,8 @@
 (ns wilson.dom-test
   (:require [wilson.dom :as d]
             [cljs.test :refer-macros [is are deftest testing]]
-            [cljs.core.match :refer-macros [match]]))
+            [cljs.core.match :refer-macros [match]]
+            [reagent.core :as r]))
 
 (deftest panel-test
   (testing "multi-tag header & contents"
@@ -182,16 +183,24 @@
   (let [rows [{:a 1 :b "B" :c -6}
               {:a 4 :b "A" :c 2}
               {:a 3 :b "D" :c 4}]
+        expected-a-rows ["1" "3" "4"]
         ks (d/prepare-keys [:a :b :c])
         component (d/sorted-table
                    ks
-                   rows)
-        [headers rows] (match component
-                        [:table _
-                         [:thead
-                          [:tr & headers]]
-                         [:tbody & rows]]
-                        [headers rows])]))
+                   rows
+                   (r/atom {}))
+        [table-headers table-rows] (match (component)
+                                    [:table _
+                                     [:thead
+                                      [:tr & table-headers]]
+                                     [:tbody & table-rows]]
+                                    [table-headers table-rows])]
+    (doseq [[[_ {:keys [class]}] k] (map vector table-headers ks)]
+      (let [expected-class (if (= k :a) "asc" nil)]
+        (is (= class expected-class))))
+    (doseq [[[_ _ [_ a]] expected]
+            (map vector table-rows expected-a-rows)]
+      (is (= a expected)))))
 
 (deftest button-test
   (let [t "Some text"
