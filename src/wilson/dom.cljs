@@ -8,8 +8,8 @@
   "Returns a key in a human-readable form."
   [k]
   (if (keyword? k)
-      (capitalize k)
-      (::descr (meta k))))
+    (capitalize k)
+    (::descr (meta k))))
 
 (defn prepare-keys
   "Prepares keys for use with wilson.dom/table.
@@ -32,20 +32,20 @@
   be represented as paths to the relevant data (as per `get-in`)."
   [m]
   (when (map? m)
-   (mapcat (fn [[k v]]
-            (let [nested (->> (get-all-keys v)
-                              (filter seq)
-                              (map (partial into [k])))]
-              (if (seq nested) nested [[k]])))
-           m)))
+    (mapcat (fn [[k v]]
+              (let [nested (->> (get-all-keys v)
+                                (filter seq)
+                                (map (partial into [k])))]
+                (if (seq nested) nested [[k]])))
+            m)))
 
 (defn sort-rows
   "Sorts rows `by-key` using corresponding sorting function.
   If `by-key` is not found in `sort-fns` map then `:default` will be used."
   [rows sort-fns by-key]
   (if (contains? sort-fns by-key)
-      ((by-key sort-fns) by-key rows)
-      ((:default sort-fns) by-key rows)))
+    ((by-key sort-fns) by-key rows)
+    ((:default sort-fns) by-key rows)))
 
 (defn parse-td-data
   "Return booleans (and other data other than actual strings or vectors) as
@@ -60,10 +60,10 @@
   Accepts singular keys or vectors of keys pointing at nested data."
   ([ks rows {:keys [row->attrs k->attrs describe-key prepare-keys
                     data->hiccup]
-               :or {row->attrs (constantly {})
-                    k->attrs (constantly {})
-                    describe-key describe-key
-                    data->hiccup parse-td-data}}]
+             :or {row->attrs (constantly {})
+                  k->attrs (constantly {})
+                  describe-key describe-key
+                  data->hiccup parse-td-data}}]
    [:table {:class "table"}
     [:thead
      (into [:tr]
@@ -97,27 +97,27 @@
      (fn []
        (let [state-deref @state
              sort-fns (or (:sort-fns opts)
-                       {:default (fn [k rows]
-                                  (if (= (sort-order-id state-deref) :asc)
-                                      (sort-by k rows)
-                                      (reverse (sort-by k rows))))})
+                          {:default (fn [k rows]
+                                      (if (= (sort-order-id state-deref) :asc)
+                                        (sort-by k rows)
+                                        (reverse (sort-by k rows))))})
              sorted-rows (sort-rows rows sort-fns (sort-key-id state-deref))
              get-new-order
-              (fn [state k]
+             (fn [state k]
                (let [swap-order {:asc :desc :desc :asc}]
-                (merge state
-                  {sort-key-id k
-                   sort-order-id (if (= (sort-key-id state) k)
-                                    (swap-order (sort-order-id state))
-                                    :asc)})))
+                 (merge state
+                        {sort-key-id k
+                         sort-order-id (if (= (sort-key-id state) k)
+                                         (swap-order (sort-order-id state))
+                                         :asc)})))
              update-state-order #(swap! state get-new-order %)
              default-opts {:k->attrs
                            (fn [k]
-                            (let [state-deref @state]
-                              {:class
-                               (when (= k (sort-key-id state-deref))
-                                      (name (sort-order-id state-deref)))
-                               :on-click #(update-state-order k)}))}]
+                             (let [state-deref @state]
+                               {:class
+                                (when (= k (sort-key-id state-deref))
+                                  (name (sort-order-id state-deref)))
+                                :on-click #(update-state-order k)}))}]
          (table ks sorted-rows (merge default-opts opts))))))
   ([ks rows state]
    (sorted-table ks rows state {})))

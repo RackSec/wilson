@@ -3,7 +3,6 @@
             [reagent.core :as reagent :refer [atom]]
             [wilson.core :as rc]))
 
-
 (def isClient (not (nil? (try (.-document js/window)
                               (catch js/Object e nil)))))
 
