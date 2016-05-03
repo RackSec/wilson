@@ -79,7 +79,6 @@
   ([ks rows]
    (table ks rows {})))
 
-
 (defn sorted-table
   "Returns a sortable table (using `wilson.dom/table`) with rows sorted using
   `wilson.dom/sort-rows`. Table headers will have an on-click handler that
@@ -91,8 +90,8 @@
   extend options map with `:sort-fns` - its value will get passed directly to
   `wilson.dom/sort-rows."
   ([ks rows state opts]
-   (let [sort-key-id (gensym "wilson-order-key")
-         sort-order-id (gensym "wilson-order-key")]
+   (let [sort-key-id (gensym "wilson-sort-key")
+         sort-order-id (gensym "wilson-sort-order")]
      (swap! state merge {sort-key-id (first ks)
                          sort-order-id :asc})
      (fn []
@@ -105,13 +104,13 @@
              sorted-rows (sort-rows rows sort-fns (sort-key-id state-deref))
              get-new-order
               (fn [state k]
-               (let [state-deref @state
-                     swap-order {:asc :desc :desc :asc}]
-                {sort-key-id k
-                 sort-order-id (if (= (sort-key-id state-deref) k)
-                                    (swap-order (sort-order-id state-deref))
-                                    :asc)}))
-             update-state-order #(swap! state merge (get-new-order state %))
+               (let [swap-order {:asc :desc :desc :asc}]
+                (merge state
+                  {sort-key-id k
+                   sort-order-id (if (= (sort-key-id state) k)
+                                    (swap-order (sort-order-id state))
+                                    :asc)})))
+             update-state-order #(swap! state get-new-order %)
              default-opts {:k->attrs
                            (fn [k]
                             (let [state-deref @state]
