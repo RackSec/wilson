@@ -76,94 +76,32 @@ Instead of typing columns by hand, you can use `wilson.dom/get-all-keys`:
  rows)
 ```
 
-### Advanced usage
-In this example we will add on-click handlers on table headers to sort the rows
-(and some CSS classes for styling).
+### Sortable table component
+In addition to a standard table, you can create a table with rows sortable by column user clicks on:
 
 ```clojure
 (:require [wilson.dom :as d]
           [reagent.core :as r])
 
-(def ks (prepare-keys [:a :b [:c :d]]))
+(defonce app-state (r/atom {}))
 
-(defonce state
-  (r/atom {:sort-key (first ks)
-                 :sort-order :asc}))
+(def ks [:a :b [:c :d]])
 
-(defn table-component [state]
-  (let [rows [{:a 1 :b 1 :c {:d "a"}}
-              {:a 3 :b 2 :c {:d "b"}}
-              {:a 8 :b 3 :c {:d "c"}}
-              {:a 2 :b 4 :c {:d "d"}}
-              {:a 4 :b 5 :c {:d "e"}}]
-        sorted-rows (sort-rows
-                     rows
-                     {:default (fn [k rows] (if (= (:sort-order @state) :asc)
-                                              (sort-by k rows)
-                                              (reverse (sort-by k rows))))}
-                     (:sort-key @state))
-        get-new-order (fn [state k]
-                        (let [sort-key (:sort-key @state)
-                              sort-order (:sort-order @state)
-                              swap-order {:asc :desc :desc :asc}]
-                          {:sort-key k
-                           :sort-order (if (= sort-key k)
-                                           (swap-order sort-order)
-                                           :asc)}))
-        update-state-order #(swap! state merge (get-new-order state %))]
-   (with-class "sorted-table"
-    (table
-     ks
-     sorted-rows
-     {:k->attrs (fn [k]
-                 {:on-click #(update-state-order k)
-                  :class (when (= k (:sort-key @state))
-                          (name (:sort-order @state)))})}))))
+(def rows [{:a 1 :b 1 :c {:d "a"}}
+          {:a 3 :b 2 :c {:d "b"}}
+          {:a 8 :b 3 :c {:d "c"}}
+          {:a 2 :b 4 :c {:d "d"}}
+          {:a 4 :b 5 :c {:d "e"}}])
+
+(d/sorted-table
+ ks
+ rows
+ app-state)
 ```
 
-Add some CSS to provide visual cues to the user:
+For `app-state` above you can also use [Reagent Session][session].
 
-```css
-.sorted-table > thead > tr > th {
-  position: relative;
-  cursor: pointer;
-  padding-left: 20px;
-}
-
-.sorted-table th:before {
-  content: "";
-  border-right: 3px solid transparent;
-  border-bottom: 3px solid #b6b6b6;
-  border-left: 3px solid transparent;
-  position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  margin-top: -2px;
-}
-
-.sorted-table th:after {
-  content: "";
-  border-right: 3px solid transparent;
-  border-top: 3px solid #b6b6b6;
-  border-left: 3px solid transparent;
-  position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  margin-top: 3px;
-}
-
-.sorted-table .asc:before {
-  border-bottom-color: #111;
-}
-
-.sorted-table .desc:after {
-  border-top-color: #111;
-}
-```
-
-Now when you render `table-component` you'll get a table with live sorting on the front-end.
+For expected UX, you should style your sorted table using `asc` and `desc` css classes (added to table headers corresponding to current sorting key). Example styles can be found inside [`site.css`][site-css]
 
 
 
@@ -171,3 +109,5 @@ Now when you render `table-component` you'll get a table with live sorting on th
 [bs3]: http://getbootstrap.com/
 [cljs]: https://github.com/clojure/clojurescript
 [reagent]: https://holmsand.github.io/reagent/
+[session]: https://github.com/reagent-project/reagent-utils#reagentsession
+[site-css]: https://github.com/RackSec/wilson/blob/master/resources/public/css/site.css
