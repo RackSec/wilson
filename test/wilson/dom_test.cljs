@@ -1,6 +1,8 @@
 (ns wilson.dom-test
   (:require [wilson.dom :as d]
-            [cljs.test :refer-macros [is are deftest testing]]))
+            [cljs.test :refer-macros [is are deftest testing]]
+            [cljs.core.match :refer-macros [match]]
+            [reagent.core :as r]))
 
 (deftest panel-test
   (testing "multi-tag header & contents"
@@ -43,17 +45,17 @@
         sort-fns {:default (fn [k rows] (sort-by k rows))
                   :b (fn [k rows] (reverse (sort-by k rows)))}]
     (testing "default order fuction"
-     (is (= (d/sort-rows rows sort-fns :a)
-            [{:a 1 :b "B" :c {:x "abc"}}
-             {:a 2 :b "C" :c :z}
-             {:a 3 :b "D" :c {:a "def"}}
-             {:a 4 :b "A" :c :y}])))
+      (is (= (d/sort-rows rows sort-fns :a)
+             [{:a 1 :b "B" :c {:x "abc"}}
+              {:a 2 :b "C" :c :z}
+              {:a 3 :b "D" :c {:a "def"}}
+              {:a 4 :b "A" :c :y}])))
     (testing "per-key order fuction"
-     (is (= (d/sort-rows rows sort-fns :b)
-            [{:a 3 :b "D" :c {:a "def"}}
-             {:a 2 :b "C" :c :z}
-             {:a 1 :b "B" :c {:x "abc"}}
-             {:a 4 :b "A" :c :y}])))))
+      (is (= (d/sort-rows rows sort-fns :b)
+             [{:a 3 :b "D" :c {:a "def"}}
+              {:a 2 :b "C" :c :z}
+              {:a 1 :b "B" :c {:x "abc"}}
+              {:a 4 :b "A" :c :y}])))))
 
 (deftest table-test
   (testing "simple table"
@@ -137,10 +139,10 @@
                       :some-other-key (d/label "warning" "z")
                       :hidden "hidden"}]
                     {:row->attrs (fn [{:keys [some-other-key]}]
-                                 (condp = some-other-key
-                                   "j" {:class "warning"}
-                                   "r" {:class "success"}
-                                   {:class "info"}))})
+                                   (condp = some-other-key
+                                     "j" {:class "warning"}
+                                     "r" {:class "success"}
+                                     {:class "info"}))})
            [:table {:class "table"}
             [:thead
              [:tr
@@ -166,16 +168,39 @@
                       :b false
                       :c true}])
            [:table {:class "table"}
-              [:thead
-               [:tr
-                [:th {} "A"]
-                [:th {} "B"]
-                [:th {} "C"]]]
-              [:tbody
-               [:tr {}
-                [:td "abc"]
-                [:td "false"]
-                [:td "true"]]]]))))
+            [:thead
+             [:tr
+              [:th {} "A"]
+              [:th {} "B"]
+              [:th {} "C"]]]
+            [:tbody
+             [:tr {}
+              [:td "abc"]
+              [:td "false"]
+              [:td "true"]]]]))))
+
+(deftest sorted-table-test
+  (let [rows [{:a 1 :b "B" :c -6}
+              {:a 4 :b "A" :c 2}
+              {:a 3 :b "D" :c 4}]
+        expected-a-rows ["1" "3" "4"]
+        ks (d/prepare-keys [:a :b :c])
+        component (d/sorted-table
+                   ks
+                   rows
+                   (r/atom {}))
+        [table-headers table-rows] (match (component)
+                                     [:table _
+                                      [:thead
+                                       [:tr & table-headers]]
+                                      [:tbody & table-rows]]
+                                     [table-headers table-rows])]
+    (doseq [[[_ {:keys [class]}] k] (map vector table-headers ks)]
+      (let [expected-class (if (= k :a) "asc" nil)]
+        (is (= class expected-class))))
+    (doseq [[[_ _ [_ a]] expected]
+            (map vector table-rows expected-a-rows)]
+      (is (= a expected)))))
 
 (deftest button-test
   (let [t "Some text"

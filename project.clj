@@ -10,7 +10,8 @@
   :dependencies [[org.clojure/clojurescript "1.8.51" :scope "provided"]
                  [reagent "0.5.1"]
                  [hiccup "1.0.5"]
-                 [secretary "1.2.3"]]
+                 [secretary "1.2.3"]
+                 [org.clojure/core.match "0.3.0-alpha4"]]
 
   :plugins [[lein-environ "1.0.2"]
             [lein-asset-minifier "0.2.8"]]
