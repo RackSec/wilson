@@ -90,8 +90,8 @@
   extend options map with `:sort-fns` - its value will get passed directly to
   `wilson.dom/sort-rows."
   ([ks rows state opts]
-   (let [sort-key-id (gensym "wilson-sort-key")
-         sort-order-id (gensym "wilson-sort-order")]
+   (let [sort-key-id (or (:sort-key-id opts) (gensym "wilson-sort-key"))
+         sort-order-id (or (:sort-order-id opts) (gensym "wilson-sort-order"))]
      (swap! state merge {sort-key-id (first ks)
                          sort-order-id :asc})
      (fn []
