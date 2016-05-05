@@ -92,8 +92,7 @@
   ([ks rows state opts]
    (let [sort-key-id (or (:sort-key-id opts) (gensym "wilson-sort-key"))
          sort-order-id (or (:sort-order-id opts) (gensym "wilson-sort-order"))]
-     (swap! state merge {sort-key-id (first ks)
-                         sort-order-id :asc})
+     (swap! state merge {sort-order-id :asc})
      (fn []
        (let [state-deref @state
              sort-fns (or (:sort-fns opts)
@@ -101,7 +100,9 @@
                                       (if (= (sort-order-id state-deref) :asc)
                                         (sort-by k rows)
                                         (reverse (sort-by k rows))))})
-             sorted-rows (sort-rows rows sort-fns (sort-key-id state-deref))
+             maybe-sorted-rows (if (sort-key-id state-deref)
+                                (sort-rows rows sort-fns (sort-key-id state-deref))
+                                rows)
              get-new-order
              (fn [state k]
                (let [swap-order {:asc :desc :desc :asc}]
@@ -118,7 +119,7 @@
                                 (when (= k (sort-key-id state-deref))
                                   (name (sort-order-id state-deref)))
                                 :on-click #(update-state-order k)}))}]
-         (table ks sorted-rows (merge default-opts opts))))))
+         (table ks maybe-sorted-rows (merge default-opts opts))))))
   ([ks rows state]
    (sorted-table ks rows state {})))
 
