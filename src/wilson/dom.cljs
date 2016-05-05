@@ -101,8 +101,8 @@
                                         (sort-by k rows)
                                         (reverse (sort-by k rows))))})
              maybe-sorted-rows (if (sort-key-id state-deref)
-                                (sort-rows rows sort-fns (sort-key-id state-deref))
-                                rows)
+                                 (sort-rows rows sort-fns (sort-key-id state-deref))
+                                 rows)
              get-new-order
              (fn [state k]
                (let [swap-order {:asc :desc :desc :asc}]

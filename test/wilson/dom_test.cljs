@@ -200,17 +200,17 @@
             (map vector table-rows expected-a-rows)]
       (is (= a expected)))
     (with-mounted-component [component]
-     (fn [c div]
-       (let [first-th (.querySelector div "th:first-of-type")
-             first-th-class (.-className first-th)
-             click #(do (.click first-th) (rflush))]
-        (is (empty? (.-className first-th)))
-        (click)
-        (testing "clicking on header triggers sorting"
-          (is (= (.-className first-th) "asc")))
-        (click)
-        (testing "clicking second time changes sorting order"
-          (is (= (.-className first-th) "desc"))))))))
+      (fn [c div]
+        (let [first-th (.querySelector div "th:first-of-type")
+              first-th-class (.-className first-th)
+              click #(do (.click first-th) (rflush))]
+          (is (empty? (.-className first-th)))
+          (click)
+          (testing "clicking on header triggers sorting"
+            (is (= (.-className first-th) "asc")))
+          (click)
+          (testing "clicking second time changes sorting order"
+            (is (= (.-className first-th) "desc"))))))))
 
 (deftest button-test
   (let [t "Some text"
