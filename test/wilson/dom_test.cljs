@@ -5,6 +5,13 @@
             [reagent.core :as r]
             [wilson.core-test :refer [rflush with-mounted-component]]))
 
+(defn click-dom-el
+  "Dispatch click mouse-event (Web API) on given element."
+  [el]
+  (let [mouse-event (.createEvent js/document "MouseEvents")]
+    (.initMouseEvent mouse-event "click" true true js/window 1 0 0)
+    (.dispatchEvent el mouse-event)))
+
 (deftest panel-test
   (testing "multi-tag header & contents"
     (is (= (d/panel [[:div {"class" "aside"}]
@@ -203,7 +210,7 @@
       (fn [c div]
         (let [first-th (.querySelector div "th:first-of-type")
               first-th-class (.-className first-th)
-              click #(do (.click first-th) (rflush))]
+              click #(do (click-dom-el first-th) (rflush))]
           (is (empty? (.-className first-th)))
           (click)
           (testing "clicking on header triggers sorting"
