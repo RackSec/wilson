@@ -14,7 +14,8 @@
                  [org.clojure/core.match "0.3.0-alpha4"]]
 
   :plugins [[lein-environ "1.0.2"]
-            [lein-asset-minifier "0.2.8"]]
+            [lein-asset-minifier "0.2.8"]
+            [lein-cljfmt "0.3.0"]]
 
   :ring {:handler wilson.handler/app}
 

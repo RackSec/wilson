@@ -1,5 +1,6 @@
 language: clojure
 script:
+  - lein cljfmt check
   - lein doo phantom test once
 jdk:
   - oraclejdk8
