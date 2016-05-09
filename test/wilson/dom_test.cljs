@@ -188,7 +188,8 @@
               [:td "true"]]]]))))
 
 (deftest sorted-table-test
-  (let [rows [{:a 1 :b "B" :c -6}
+  (let [state (r/atom {})
+        rows [{:a 1 :b "B" :c -6}
               {:a 4 :b "A" :c 2}
               {:a 3 :b "D" :c 4}]
         expected-a-rows ["1" "4" "3"]
@@ -196,8 +197,8 @@
         component (d/sorted-table
                    ks
                    rows
-                   (r/atom {}))
-        [table-headers table-rows] (match (component)
+                   state)
+        [table-headers table-rows] (match (component ks rows state)
                                      [:table _
                                       [:thead
                                        [:tr & table-headers]]
@@ -206,7 +207,7 @@
     (doseq [[[_ _ [_ a]] expected]
             (map vector table-rows expected-a-rows)]
       (is (= a expected)))
-    (with-mounted-component [component]
+    (with-mounted-component [component ks rows state]
       (fn [c div]
         (let [first-th (.querySelector div "th:first-of-type")
               first-th-class (.-className first-th)
