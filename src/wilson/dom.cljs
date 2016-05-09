@@ -93,7 +93,7 @@
    (let [sort-key-id (or (:sort-key-id opts) (gensym "wilson-sort-key"))
          sort-order-id (or (:sort-order-id opts) (gensym "wilson-sort-order"))]
      (swap! state merge {sort-order-id :asc})
-     (fn []
+     (fn [ks rows state opts]
        (let [state-deref @state
              sort-fns (or (:sort-fns opts)
                           {:default (fn [k rows]
