@@ -85,7 +85,7 @@ In addition to a standard table, you can create a table with rows sortable by co
 
 (defonce app-state (r/atom {}))
 
-(def ks [:a :b [:c :d]])
+(def ks (d/prepare-keys [:a :b [:c :d]]))
 
 (def rows [{:a 1 :b 1 :c {:d "a"}}
           {:a 3 :b 2 :c {:d "b"}}
@@ -93,10 +93,10 @@ In addition to a standard table, you can create a table with rows sortable by co
           {:a 2 :b 4 :c {:d "d"}}
           {:a 4 :b 5 :c {:d "e"}}])
 
-(d/sorted-table
+[d/sorted-table
  ks
  rows
- app-state)
+ app-state]
 ```
 
 For `app-state` above you can also use [Reagent Session][session].
