@@ -174,9 +174,15 @@
   (update elem 1 merge-attrs attrs))
 
 (defn with-class
-  "Adds a class to an element."
-  [cls elem]
-  (with-attrs {:class cls} elem))
+  "Adds a class to a component."
+  [cls component]
+  (if (vector? component)
+   (r/as-element (with-attrs {:class cls} component))
+   (fn with-class-outer* [_ _ & outer-props]
+    (let [outer-comp (apply component outer-props)]
+      (fn with-class-inner* [_ _ & inner-props]
+        (let [inner-comp (apply outer-comp inner-props)]
+          (with-attrs {:class cls} inner-comp)))))))
 
 (defn icon
   "Creates a Glyphicon.
