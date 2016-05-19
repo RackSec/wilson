@@ -8,7 +8,7 @@
                         ["snapshots" :clojars]]
 
   :dependencies [[org.clojure/clojurescript "1.8.51" :scope "provided"]
-                 [reagent "0.6.0-alpha"]
+                 [reagent "0.5.1"]
                  [hiccup "1.0.5"]
                  [secretary "1.2.3"]
                  [org.clojure/core.match "0.3.0-alpha4"]]
@@ -42,7 +42,7 @@
                                          :pretty-print true}}}}
 
   :figwheel {:http-server-root "public"
-             :server-port 3001
+             :server-port 3449
              :css-dirs ["resources/public/css"]
              :ring-handler wilson.handler/app}
 
