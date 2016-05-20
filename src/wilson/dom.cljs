@@ -2,8 +2,7 @@
   "Tools for building DOMs."
   (:require [wilson.utils :refer [capitalize]]
             [clojure.string :as string]
-            [reagent.core :as r]
-            [cljs.core.match :refer-macros [match]]))
+            [reagent.core :as r]))
 
 (defn describe-key
   "Returns a key in a human-readable form."
@@ -181,11 +180,8 @@
                     (let [outer-comp (apply render-fn outer-props)]
                       (fn [_ & inner-props]
                         (let [inner-comp (apply outer-comp inner-props)]
-                          (with-attrs {:class cls} inner-comp)))))
-        [render-fn] (match component
-                      [render-fn & _]
-                      [render-fn])]
-    (if (keyword? render-fn)
+                          (with-attrs {:class cls} inner-comp)))))]
+    (if (keyword? (first component))
       (with-attrs {:class cls} component)
       (into [parse-f2c] component))))
 
