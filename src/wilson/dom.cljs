@@ -58,10 +58,11 @@
 (defn table
   "Creates a table displaying the keys in the given rows of data.
   Accepts singular keys or vectors of keys pointing at nested data."
-  ([ks rows {:keys [row->attrs k->attrs describe-key prepare-keys
-                    data->hiccup]
+  ([ks rows {:keys [row->attrs k->attrs cell-k->attrs describe-key
+                    prepare-keys data->hiccup]
              :or {row->attrs (constantly {})
                   k->attrs (constantly {})
+                  cell-k->attrs (constantly {})
                   describe-key describe-key
                   data->hiccup parse-td-data}}]
    [:table {:class "table"}
@@ -75,7 +76,8 @@
             (into [:tr (row->attrs row)]
                   (for [k ks]
                     (let [td-data (k row)]
-                      [:td (data->hiccup td-data)])))))])
+                      [:td (cell-k->attrs k)
+                       (data->hiccup td-data)])))))])
   ([ks rows]
    (table ks rows {})))
 
