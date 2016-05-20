@@ -170,6 +170,32 @@
               [:td {} "x"]
               [:td {} "y"]
               [:td {} (d/label "warning" "z")]]]])))
+  (testing "table with per-td classes"
+    (is (= (d/table (d/prepare-keys [:a :b :c])
+                    [{:a 1 :b 2 :c 3}
+                     {:a 8 :b 9 :c 4}
+                     {:a 7 :b 6 :c 5}]
+                    {:cell-k->attrs (fn [k]
+                                      {:class (d/describe-key k)})})
+           [:table {:class "table"}
+            [:thead
+             [:tr
+              [:th {} "A"]
+              [:th {} "B"]
+              [:th {} "C"]]]
+            [:tbody
+             [:tr {}
+              [:td {:class "A"} "1"]
+              [:td {:class "B"} "2"]
+              [:td {:class "C"} "3"]]
+             [:tr {}
+              [:td {:class "A"} "8"]
+              [:td {:class "B"} "9"]
+              [:td {:class "C"} "4"]]
+             [:tr {}
+              [:td {:class "A"} "7"]
+              [:td {:class "B"} "6"]
+              [:td {:class "C"} "5"]]]])))
   (testing "boolean values are strings"
     (is (= (d/table (d/prepare-keys [:a :b :c])
                     [{:a "abc"
