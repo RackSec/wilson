@@ -88,17 +88,17 @@
               [:th {} "Some other key"]]]
             [:tbody
              [:tr {}
-              [:td (d/label "warning" "h")]
-              [:td "i"]
-              [:td "j"]]
+              [:td {} (d/label "warning" "h")]
+              [:td {} "i"]
+              [:td {} "j"]]
              [:tr {}
-              [:td "p"]
-              [:td (d/label "warning" "q")]
-              [:td "r"]]
+              [:td {} "p"]
+              [:td {} (d/label "warning" "q")]
+              [:td {} "r"]]
              [:tr {}
-              [:td "x"]
-              [:td "y"]
-              [:td (d/label "warning" "z")]]]])))
+              [:td {} "x"]
+              [:td {} "y"]
+              [:td {} (d/label "warning" "z")]]]])))
   (testing "table with nested data"
     (is (= (d/table (d/prepare-keys [:a-key :some-key [:a :b :c]])
                     [{:a-key (d/label "warning" "h")
@@ -121,17 +121,17 @@
               [:th {} "A.b.c"]]]
             [:tbody
              [:tr {}
-              [:td (d/label "warning" "h")]
-              [:td "i"]
-              [:td "123"]]
+              [:td {} (d/label "warning" "h")]
+              [:td {} "i"]
+              [:td {} "123"]]
              [:tr {}
-              [:td "p"]
-              [:td (d/label "warning" "q")]
-              [:td "456"]]
+              [:td {} "p"]
+              [:td {} (d/label "warning" "q")]
+              [:td {} "456"]]
              [:tr {}
-              [:td "x"]
-              [:td "y"]
-              [:td "abc"]]]])))
+              [:td {} "x"]
+              [:td {} "y"]
+              [:td {} "abc"]]]])))
   (testing "table with per-row clases"
     (is (= (d/table (d/prepare-keys [:a-key :some-key :some-other-key])
                     [{:a-key (d/label "warning" "h")
@@ -159,17 +159,43 @@
               [:th {} "Some other key"]]]
             [:tbody
              [:tr {:class "warning"}
-              [:td (d/label "warning" "h")]
-              [:td "i"]
-              [:td "j"]]
+              [:td {} (d/label "warning" "h")]
+              [:td {} "i"]
+              [:td {} "j"]]
              [:tr {:class "success"}
-              [:td "p"]
-              [:td (d/label "warning" "q")]
-              [:td "r"]]
+              [:td {} "p"]
+              [:td {} (d/label "warning" "q")]
+              [:td {} "r"]]
              [:tr {:class "info"}
-              [:td "x"]
-              [:td "y"]
-              [:td (d/label "warning" "z")]]]])))
+              [:td {} "x"]
+              [:td {} "y"]
+              [:td {} (d/label "warning" "z")]]]])))
+  (testing "table with per-td classes"
+    (is (= (d/table (d/prepare-keys [:a :b :c])
+                    [{:a 1 :b 2 :c 3}
+                     {:a 8 :b 9 :c 4}
+                     {:a 7 :b 6 :c 5}]
+                    {:cell-k->attrs (fn [k]
+                                      {:class (d/describe-key k)})})
+           [:table {:class "table"}
+            [:thead
+             [:tr
+              [:th {} "A"]
+              [:th {} "B"]
+              [:th {} "C"]]]
+            [:tbody
+             [:tr {}
+              [:td {:class "A"} "1"]
+              [:td {:class "B"} "2"]
+              [:td {:class "C"} "3"]]
+             [:tr {}
+              [:td {:class "A"} "8"]
+              [:td {:class "B"} "9"]
+              [:td {:class "C"} "4"]]
+             [:tr {}
+              [:td {:class "A"} "7"]
+              [:td {:class "B"} "6"]
+              [:td {:class "C"} "5"]]]])))
   (testing "boolean values are strings"
     (is (= (d/table (d/prepare-keys [:a :b :c])
                     [{:a "abc"
@@ -183,9 +209,9 @@
               [:th {} "C"]]]
             [:tbody
              [:tr {}
-              [:td "abc"]
-              [:td "false"]
-              [:td "true"]]]]))))
+              [:td {} "abc"]
+              [:td {} "false"]
+              [:td {} "true"]]]]))))
 
 (deftest sorted-table-test
   (let [state (r/atom {})
@@ -204,7 +230,7 @@
                                        [:tr & table-headers]]
                                       [:tbody & table-rows]]
                                      [table-headers table-rows])]
-    (doseq [[[_ _ [_ a]] expected]
+    (doseq [[[_ _ [_ _ a]] expected]
             (map vector table-rows expected-a-rows)]
       (is (= a expected)))
     (with-mounted-component [component ks rows state]
