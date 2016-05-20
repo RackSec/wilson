@@ -275,11 +275,11 @@
               {:a 3 :b "D" :c 4}]
         ks (d/prepare-keys [:a :b :c])]
     (with-mounted-component (d/with-class "some-class" [d/sorted-table ks rows state])
-     (fn [c div]
-       (let [table-el (.querySelector div "table")
-             has-class? (fn [cls el] (.contains (.-classList el) cls))]
-         (testing "with-class on form-2 component"
-           (is (has-class? "some-class" table-el))))))))
+      (fn [c div]
+        (let [table-el (.querySelector div "table")
+              has-class? (fn [cls el] (.contains (.-classList el) cls))]
+          (testing "with-class on form-2 component"
+            (is (has-class? "some-class" table-el))))))))
 
 (deftest icon-test
   (is (= (d/icon "download")

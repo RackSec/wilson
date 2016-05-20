@@ -178,13 +178,13 @@
   "Adds a class to a component."
   [cls component]
   (let [parse-f2c (fn [render-fn & outer-props]
-                   (let [outer-comp (apply render-fn outer-props)]
-                    (fn [_ & inner-props]
-                     (let [inner-comp (apply outer-comp inner-props)]
-                      (with-attrs {:class cls} inner-comp)))))
+                    (let [outer-comp (apply render-fn outer-props)]
+                      (fn [_ & inner-props]
+                        (let [inner-comp (apply outer-comp inner-props)]
+                          (with-attrs {:class cls} inner-comp)))))
         [render-fn] (match component
-                           [render-fn & _]
-                           [render-fn])]
+                      [render-fn & _]
+                      [render-fn])]
     (if (keyword? render-fn)
       (with-attrs {:class cls} component)
       (into [parse-f2c] component))))
