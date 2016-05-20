@@ -278,7 +278,8 @@
      (fn [c div]
        (let [table-el (.querySelector div "table")
              has-class? (fn [cls el] (.contains (.-classList el) cls))]
-         (is (has-class? "some-class" table-el)))))))
+         (testing "with-class on form-2 component"
+           (is (has-class? "some-class" table-el))))))))
 
 (deftest icon-test
   (is (= (d/icon "download")
