@@ -268,7 +268,17 @@
            [:a {:href "/xyzzy" :class "panel"}])))
   (testing "merge with existing classes"
     (is (= (d/with-class "panel" [:a {:class "colorful" :href "/xyzzy"}])
-           [:a {:href "/xyzzy" :class "colorful panel"}]))))
+           [:a {:href "/xyzzy" :class "colorful panel"}])))
+  (let [state (r/atom {})
+        rows [{:a 1 :b "B" :c -6}
+              {:a 4 :b "A" :c 2}
+              {:a 3 :b "D" :c 4}]
+        ks (d/prepare-keys [:a :b :c])]
+    (with-mounted-component (d/with-class "some-class" [d/sorted-table ks rows state])
+     (fn [c div]
+       (let [table-el (.querySelector div "table")
+             has-class? (fn [cls el] (.contains (.-classList el) cls))]
+         (is (has-class? "some-class" table-el)))))))
 
 (deftest icon-test
   (is (= (d/icon "download")
