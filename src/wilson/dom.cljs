@@ -2,7 +2,8 @@
   "Tools for building DOMs."
   (:require [wilson.utils :refer [capitalize]]
             [clojure.string :as string]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [cljs.core.match :refer-macros [match]]))
 
 (defn describe-key
   "Returns a key in a human-readable form."
@@ -176,13 +177,17 @@
 (defn with-class
   "Adds a class to a component."
   [cls component]
-  (if (vector? component)
-   (r/as-element (with-attrs {:class cls} component))
-   (fn with-class-outer* [_ _ & outer-props]
-    (let [outer-comp (apply component outer-props)]
-      (fn with-class-inner* [_ _ & inner-props]
-        (let [inner-comp (apply outer-comp inner-props)]
-          (with-attrs {:class cls} inner-comp)))))))
+  (let [parse-f2c (fn [render-fn & outer-props]
+                   (let [outer-comp (apply render-fn outer-props)]
+                    (fn [_ & inner-props]
+                     (let [inner-comp (apply outer-comp inner-props)]
+                      (with-attrs {:class cls} inner-comp)))))
+        [render-fn] (match component
+                           [render-fn & _]
+                           [render-fn])]
+    (if (keyword? render-fn)
+      (with-attrs {:class cls} component)
+      (into [parse-f2c] component))))
 
 (defn icon
   "Creates a Glyphicon.
