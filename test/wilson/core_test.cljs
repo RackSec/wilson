@@ -8,6 +8,8 @@
 
 (def rflush reagent/flush)
 
+(defn rstr [el] (reagent/render-to-static-markup el))
+
 (defn add-test-div [name]
   (let [doc     js/document
         body    (.-body js/document)
