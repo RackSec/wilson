@@ -3,7 +3,7 @@
             [cljs.test :refer-macros [is are deftest testing]]
             [cljs.core.match :refer-macros [match]]
             [reagent.core :as r]
-            [wilson.core-test :refer [rflush with-mounted-component]]))
+            [wilson.core-test :refer [rflush with-mounted-component rstr]]))
 
 (defn click-dom-el
   "Dispatch click mouse-event (Web API) on given element."
@@ -294,7 +294,33 @@
            [:a {:href "/xyzzy" :class "panel"}])))
   (testing "merge with existing classes"
     (is (= (d/with-class "panel" [:a {:class "colorful" :href "/xyzzy"}])
-           [:a {:href "/xyzzy" :class "colorful panel"}]))))
+           [:a {:href "/xyzzy" :class "colorful panel"}])))
+  (testing "with-class on form-2 component"
+    (let [state (r/atom {})
+          rows [{:a 1 :b "B" :c -6}
+                {:a 4 :b "A" :c 2}
+                {:a 3 :b "D" :c 4}]
+          ks (d/prepare-keys [:a :b :c])]
+      (is (= (rstr (d/with-class "some-class" [d/sorted-table ks rows state]))
+             (rstr [:table {:class "table some-class"}
+                    [:thead
+                     [:tr
+                      [:th "A"]
+                      [:th "B"]
+                      [:th "C"]]]
+                    [:tbody
+                     [:tr
+                      [:td "1"]
+                      [:td "B"]
+                      [:td "-6"]]
+                     [:tr
+                      [:td "4"]
+                      [:td "A"]
+                      [:td "2"]]
+                     [:tr
+                      [:td "3"]
+                      [:td "D"]
+                      [:td "4"]]]]))))))
 
 (deftest icon-test
   (is (= (d/icon "download")

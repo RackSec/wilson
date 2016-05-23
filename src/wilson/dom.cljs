@@ -176,9 +176,16 @@
   (update elem 1 merge-attrs attrs))
 
 (defn with-class
-  "Adds a class to an element."
-  [cls elem]
-  (with-attrs {:class cls} elem))
+  "Adds a class to a component."
+  [cls component]
+  (let [parse-f2c (fn [render-fn & outer-props]
+                    (let [outer-comp (apply render-fn outer-props)]
+                      (fn [_ & inner-props]
+                        (let [inner-comp (apply outer-comp inner-props)]
+                          (with-attrs {:class cls} inner-comp)))))]
+    (if (keyword? (first component))
+      (with-attrs {:class cls} component)
+      (into [parse-f2c] component))))
 
 (defn icon
   "Creates a Glyphicon.
