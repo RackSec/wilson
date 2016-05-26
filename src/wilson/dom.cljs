@@ -4,6 +4,8 @@
             [clojure.string :as string]
             [reagent.core :as r]))
 
+(declare merge-attrs)
+
 (defn describe-key
   "Returns a key in a human-readable form."
   [k]
@@ -114,14 +116,16 @@
                                          (swap-order (sort-order-id state))
                                          :asc)})))
              update-state-order #(swap! state get-new-order %)
-             default-opts {:k->attrs
-                           (fn [k]
-                             (let [state-deref @state]
-                               {:class
-                                (when (= k (sort-key-id state-deref))
-                                  (name (sort-order-id state-deref)))
-                                :on-click #(update-state-order k)}))}]
-         (table ks maybe-sorted-rows (merge default-opts opts))))))
+             update-opts (update opts :k->attrs
+                                 (fn [user-k->attrs]
+                                   (fn [k]
+                                     (let [u (when user-k->attrs (user-k->attrs k))
+                                           sort-class (when (= k (sort-key-id state-deref))
+                                                        (name (sort-order-id state-deref)))]
+                                       (merge-attrs {:class sort-class
+                                                     :on-click #(update-state-order k)}
+                                                    u)))))]
+         (table ks maybe-sorted-rows update-opts)))))
   ([ks rows state]
    (sorted-table ks rows state {})))
 
