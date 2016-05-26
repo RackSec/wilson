@@ -244,7 +244,19 @@
             (is (= (.-className first-th) "asc")))
           (click)
           (testing "clicking second time changes sorting order"
-            (is (= (.-className first-th) "desc"))))))))
+            (is (= (.-className first-th) "desc"))))))
+
+    (with-mounted-component [d/sorted-table ks rows state {:k->attrs
+                                                           (fn [k]
+                                                             {:class "some-class"})}]
+      (fn [c div]
+        (let [first-th (.querySelector div "th:first-of-type")
+              click #(do (click-dom-el first-th) (rflush))]
+          (testing "first th should have class added"
+            (is (= (.-className first-th) "some-class")))
+          (click)
+          (testing "on-click should still work"
+            (is (= (.-className first-th) "asc some-class"))))))))
 
 (deftest button-test
   (let [t "Some text"
