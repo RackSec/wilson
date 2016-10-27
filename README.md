@@ -103,6 +103,61 @@ For `app-state` above you can also use [Reagent Session][session].
 
 For expected UX, you should style your sorted table using `asc` and `desc` css classes (added to table headers corresponding to current sorting key). Example styles can be found inside [`site.css`][site-css]
 
+### react-bootstrap components
+Wilson includes all [React-Bootstrap](https://react-bootstrap.github.io/) components.
+Here's an example usage of Bootstrap Popover:
+
+```clojure
+(:require [reagent.core :as r]
+          [wilson.react-bootstrap :refer [overlay-trigger popover]])
+
+(defn component-with-popover
+  []
+  [overlay-trigger {:placement :right
+                    :trigger :click
+                    :overlay (r/as-component
+                              [popover {:id "your-popover"}
+                               [:div "Popover content."]])}
+    [:button "Click me to toggle popover"]])
+```
+
+### Affix
+Toggle position of an element depending on scroll position of your page.
+
+```clojure
+(:require [wilson.dom :refer [affix]])
+
+[:div.affix-wrapper
+ [affix
+  [:div "Your content inside an affix."]]]
+```
+
+And add the following css
+
+```css
+.affix-wrapper .affix {
+  position: fixed;
+  top: 0;
+}
+```
+
+### Modals
+To add Bootstrap modal to your page first include `modal-window`
+(one per page - content of a modal is controlled by entries in your app state).
+After that you can use `modal-button` to add buttons triggering the modal
+(and setting its content).
+
+```clojure
+(:require [reagent.core :as r]
+          [wilson.dom :refer [modal-window modal-button]])
+
+(defn home
+  []
+  (let [state (r/atom {})]
+   [:div
+    [modal-window state]]
+    [modal-button "Modal title" "Modal content" "Click me!" state]))
+```
 
 
 [book]: https://en.wikipedia.org/wiki/By_His_Bootstraps
