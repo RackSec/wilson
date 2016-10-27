@@ -2,6 +2,7 @@
   "Tools for building DOMs."
   (:require [wilson.utils :refer [capitalize]]
             [clojure.string :as string]
+            [cljsjs.waypoints]
             [reagent.core :as r]))
 
 (declare merge-attrs)
@@ -198,3 +199,33 @@
   [type]
   [:span {:class (str "glyphicon glyphicon-" (name type))
           :aria-hidden true}])
+
+(defn affix-render
+  [child]
+  (let [node (r/current-component)
+        component-state (r/state node)]
+    [:div {:class (when (@component-state :affix) "affix")}
+     child]))
+
+(def affix
+  "Creates a wrapper for your component that will have a `affix`  class when
+  viewport is scrolled past the wrapper."
+  (r/create-class
+   {:get-initial-state (fn [] (r/atom {:affix false}))
+    :component-did-mount
+    (fn [this]
+      (let [node (r/dom-node this)
+            component-state (r/state this)
+            scroll-handler (fn [direction]
+                             (if (= direction "up")
+                               (swap! component-state assoc :affix false)
+                               (swap! component-state assoc :affix true)))
+            waypoint-instance (js/Waypoint.
+                               #js{:element node :handler scroll-handler})]
+        (swap! component-state assoc :waypoint-instance waypoint-instance)))
+    :component-will-unmount
+    (fn [this]
+      (let [node (r/dom-node this)
+            component-state (r/state this)]
+        (.destroy (:waypoint-instance @component-state))))
+    :reagent-render affix-render}))
