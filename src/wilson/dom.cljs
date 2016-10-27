@@ -223,7 +223,7 @@
                                (swap! component-state assoc :affix false)
                                (swap! component-state assoc :affix true)))
             waypoint-instance (js/Waypoint.
-                               #js{:element node :handler scroll-handler})]
+                               #js {:element node :handler scroll-handler})]
         (swap! component-state assoc :waypoint-instance waypoint-instance)))
     :component-will-unmount
     (fn [this]
@@ -255,6 +255,6 @@
   ([title content btn-text state attrs]
    (swap! state merge {:wilson-modal {:title title :content content}})
    (fn [title content btn-text state attrs]
-    [:a (merge {:on-click #(swap! state assoc-in [:wilson-modal :show?] true)}
-               attrs)
-     btn-text])))
+     [:a (merge {:on-click #(swap! state assoc-in [:wilson-modal :show?] true)}
+                attrs)
+      btn-text])))
