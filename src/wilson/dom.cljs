@@ -3,6 +3,8 @@
   (:require [wilson.utils :refer [capitalize]]
             [clojure.string :as string]
             [cljsjs.waypoints]
+            [wilson.react-bootstrap :refer [modal modal-header modal-body
+                                            modal-footer]]
             [reagent.core :as r]))
 
 (declare merge-attrs)
@@ -229,3 +231,30 @@
             component-state (r/state this)]
         (.destroy (:waypoint-instance @component-state))))
     :reagent-render affix-render}))
+
+(defn modal-window
+  "Modal window used by modal-button component. Values for the modal will be
+  stored in the state under `:wilson-modal`."
+  [state]
+  (let [modal-state (:wilson-modal @state)
+        show? (:show? modal-state)
+        title (:title modal-state)
+        content (:content modal-state)
+        close-modal #(swap! state assoc-in [:wilson-modal :show?] false)]
+    [modal {:show show? :on-hide close-modal}
+     [modal-header title]
+     [modal-body content]
+     [modal-footer
+      [:button.btn.btn-danger {:on-click close-modal}
+       "Close"]]]))
+
+(defn modal-button
+  "A button that toggles modal-window on and off."
+  ([title content btn-text state]
+   (modal-button title content btn-text state {}))
+  ([title content btn-text state attrs]
+   (swap! state merge {:wilson-modal {:title title :content content}})
+   (fn [title content btn-text state attrs]
+    [:a (merge {:on-click #(swap! state assoc-in [:wilson-modal :show?] true)}
+               attrs)
+     btn-text])))
