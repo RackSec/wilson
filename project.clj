@@ -1,4 +1,4 @@
-(defproject wilson "0.28.0-SNAPSHOT"
+(defproject wilson "0.28.1-SNAPSHOT"
   :description "Opinionated Reagent bindings for Bootstrap components."
   :url "https://www.github.com/racksec/wilson"
   :license {:name "Eclipse Public License"
@@ -32,6 +32,12 @@
                    "resources/public/css/site.css"}}
 
   :cljsbuild {:builds {:app {:source-paths ["src/" "env/"]
+                             :compiler {:output-to "resources/public/js/app.js"
+                                        :output-dir "resources/public/js/out"
+                                        :asset-path "js/out"
+                                        :pretty-print true
+                                        :source-map true}}
+                       :dev {:source-paths ["dev-src" "src/" "env/"]
                              :compiler {:output-to "resources/public/js/app.js"
                                         :output-dir "resources/public/js/out"
                                         :asset-path "js/out"
@@ -72,4 +78,8 @@
                    [lein-cljsbuild "1.1.3"]
                    [lein-doo "0.1.6"]]
          :env {:dev true}}
-   :uberjar {:aot :all}})
+   :uberjar {:aot :all
+             :cljsbuild {:jar true
+                         :builds {:app {:source-paths ["src/" "env/"]
+                                        :compiler {:optimizations :advanced
+                                                   :pretty-print false}}}}}})

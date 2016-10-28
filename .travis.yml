@@ -2,8 +2,8 @@ language: clojure
 script:
   - lein cljfmt check
   - lein doo phantom test once
+  - lein uberjar
 jdk:
   - oraclejdk8
   - oraclejdk7
   - openjdk7
-
