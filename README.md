@@ -18,6 +18,10 @@
 Wilson is an opinionated library to help you use [Twitter Bootstrap 3][bs3] in [Clojurescript][cljs], particularly with [Reagent][reagent].
 
 
+## Development
+To run figwheel server for testing do `lein figwheel dev` and use components by
+editing `dev-src/wilson/core.cljs` file.
+
 ## Table component
 
 ### Simple example
