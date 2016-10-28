@@ -36,6 +36,12 @@
                                         :output-dir "resources/public/js/out"
                                         :asset-path "js/out"
                                         :pretty-print true
+                                        :source-map true}}
+                       :dev {:source-paths ["dev-src" "src/" "env/"]
+                             :compiler {:output-to "resources/public/js/app.js"
+                                        :output-dir "resources/public/js/out"
+                                        :asset-path "js/out"
+                                        :pretty-print true
                                         :source-map true
                                         :main "wilson.dev"}}
                        :test {:source-paths ["src/"  "test/"]
@@ -72,4 +78,8 @@
                    [lein-cljsbuild "1.1.3"]
                    [lein-doo "0.1.6"]]
          :env {:dev true}}
-   :uberjar {:aot :all}})
+   :uberjar {:aot :all
+             :cljsbuild {:jar true
+                         :builds {:app {:source-paths ["src/" "env/"]
+                                        :compiler {:optimizations :advanced
+                                                   :pretty-print false}}}}}})
