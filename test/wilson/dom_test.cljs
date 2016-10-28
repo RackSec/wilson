@@ -341,30 +341,30 @@
 
 (deftest affix-test
   (when isClient
-   (let [div (add-test-div "_affix_test")
-         comp (r/render
-               [d/affix [:p {:style {:height 9000}} "Some content"]]
-               div)
-         state (r/state comp)]
-    (is (false? (:affix @state)))
-    (is (:waypoint-instance @state))
-    (.removeChild (.-body js/document) div))))
+    (let [div (add-test-div "_affix_test")
+          comp (r/render
+                [d/affix [:p {:style {:height 9000}} "Some content"]]
+                div)
+          state (r/state comp)]
+      (is (false? (:affix @state)))
+      (is (:waypoint-instance @state))
+      (.removeChild (.-body js/document) div))))
 
 (deftest modal-test
   (let [state (r/atom {})]
-   (with-mounted-component [:div
-                            [d/modal-window state]
-                            [d/modal-button "Modal title"
-                                            "Modal content"
-                                            "Click me!"
-                                            state
-                                            {:id "toggle"}]]
-    (fn [c div]
-      (let [button (.querySelector div "#toggle")
-            modal-state (:wilson-modal @state)]
-       (is (= (:title modal-state) "Modal title"))
-       (is (= (:content modal-state) "Modal content"))
-       (is (nil? (:show modal-state)))
-       (click-dom-el button)
-       (is (true? (get-in @state [:wilson-modal :show?])))
-       (is (= (.-text button) "Click me!")))))))
+    (with-mounted-component [:div
+                             [d/modal-window state]
+                             [d/modal-button "Modal title"
+                              "Modal content"
+                              "Click me!"
+                              state
+                              {:id "toggle"}]]
+      (fn [c div]
+        (let [button (.querySelector div "#toggle")
+              modal-state (:wilson-modal @state)]
+          (is (= (:title modal-state) "Modal title"))
+          (is (= (:content modal-state) "Modal content"))
+          (is (nil? (:show modal-state)))
+          (click-dom-el button)
+          (is (true? (get-in @state [:wilson-modal :show?])))
+          (is (= (.-text button) "Click me!")))))))
