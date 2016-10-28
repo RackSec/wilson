@@ -2,6 +2,9 @@
   "Tools for building DOMs."
   (:require [wilson.utils :refer [capitalize]]
             [clojure.string :as string]
+            [cljsjs.waypoints]
+            [wilson.react-bootstrap :refer [modal modal-header modal-body
+                                            modal-footer]]
             [reagent.core :as r]))
 
 (declare merge-attrs)
@@ -198,3 +201,60 @@
   [type]
   [:span {:class (str "glyphicon glyphicon-" (name type))
           :aria-hidden true}])
+
+(defn affix-render
+  [child]
+  (let [node (r/current-component)
+        component-state (r/state node)]
+    [:div {:class (when (@component-state :affix) "affix")}
+     child]))
+
+(def affix
+  "Creates a wrapper for your component that will have a `affix`  class when
+  viewport is scrolled past the wrapper."
+  (r/create-class
+   {:get-initial-state (fn [] (r/atom {:affix false}))
+    :component-did-mount
+    (fn [this]
+      (let [node (r/dom-node this)
+            component-state (r/state this)
+            scroll-handler (fn [direction]
+                             (if (= direction "up")
+                               (swap! component-state assoc :affix false)
+                               (swap! component-state assoc :affix true)))
+            waypoint-instance (js/Waypoint.
+                               #js {:element node :handler scroll-handler})]
+        (swap! component-state assoc :waypoint-instance waypoint-instance)))
+    :component-will-unmount
+    (fn [this]
+      (let [node (r/dom-node this)
+            component-state (r/state this)]
+        (.destroy (:waypoint-instance @component-state))))
+    :reagent-render affix-render}))
+
+(defn modal-window
+  "Modal window used by modal-button component. Values for the modal will be
+  stored in the state under `:wilson-modal`."
+  [state]
+  (let [modal-state (:wilson-modal @state)
+        show? (:show? modal-state)
+        title (:title modal-state)
+        content (:content modal-state)
+        close-modal #(swap! state assoc-in [:wilson-modal :show?] false)]
+    [modal {:show show? :on-hide close-modal}
+     [modal-header title]
+     [modal-body content]
+     [modal-footer
+      [:button.btn.btn-danger {:on-click close-modal}
+       "Close"]]]))
+
+(defn modal-button
+  "A button that toggles modal-window on and off."
+  ([title content btn-text state]
+   (modal-button title content btn-text state {}))
+  ([title content btn-text state attrs]
+   (swap! state merge {:wilson-modal {:title title :content content}})
+   (fn [title content btn-text state attrs]
+     [:a (merge {:on-click #(swap! state assoc-in [:wilson-modal :show?] true)}
+                attrs)
+      btn-text])))
