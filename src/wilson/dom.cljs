@@ -253,8 +253,8 @@
   ([title content btn-text state]
    (modal-button title content btn-text state {}))
   ([title content btn-text state attrs]
-   (swap! state merge {:wilson-modal {:title title :content content}})
-   (fn [title content btn-text state attrs]
-     [:a (merge {:on-click #(swap! state assoc-in [:wilson-modal :show?] true)}
-                attrs)
-      btn-text])))
+   [:a (merge {:on-click #(swap! state assoc :wilson-modal {:show? true
+                                                            :title title
+                                                            :content content})}
+              attrs)
+    btn-text]))
