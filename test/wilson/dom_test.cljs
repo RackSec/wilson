@@ -362,9 +362,11 @@
       (fn [c div]
         (let [button (.querySelector div "#toggle")
               modal-state (:wilson-modal @state)]
-          (is (= (:title modal-state) "Modal title"))
-          (is (= (:content modal-state) "Modal content"))
+          (is (nil? (:title modal-state)))
+          (is (nil? (:content modal-state)))
           (is (nil? (:show modal-state)))
           (click-dom-el button)
           (is (true? (get-in @state [:wilson-modal :show?])))
+          (is (= (get-in @state [:wilson-modal :title]) "Modal title"))
+          (is (= (get-in @state [:wilson-modal :content]) "Modal content"))
           (is (= (.-text button) "Click me!")))))))
