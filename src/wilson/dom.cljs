@@ -56,7 +56,7 @@
   "Return booleans (and other data other than actual strings or vectors) as
   strings.  Used in table to make sure everything is displayed in the browser."
   [x]
-  (if-not (or (vector? x) (string? x))
+  (if-not (or (vector? x) (string? x) (nil? x))
     (pr-str x)
     x))
 
