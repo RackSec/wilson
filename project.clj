@@ -1,4 +1,4 @@
-(defproject wilson "0.31.0-SNAPSHOT"
+(defproject wilson "0.32.0-SNAPSHOT"
   :description "Opinionated Reagent bindings for Bootstrap components."
   :url "https://www.github.com/racksec/wilson"
   :license {:name "Eclipse Public License"
@@ -12,7 +12,7 @@
                  [hiccup "1.0.5"]
                  [secretary "1.2.3"]
                  [org.clojure/core.match "0.3.0-alpha4"]
-                 [cljsjs/react-bootstrap "0.30.2-0"]
+                 [cljsjs/react-bootstrap "0.30.6-0"]
                  [cljsjs/waypoints "4.0.0-0"]]
 
   :plugins [[lein-environ "1.0.2"]
